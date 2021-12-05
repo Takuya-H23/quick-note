@@ -1,6 +1,7 @@
-# Welcome to Remix!
+# Quick Note 
 
-- [Remix Docs](https://remix.run/docs)
+I created this to take quick notes such as commands and programming concepts that I frequently look up.
+
 
 ## Deployment
 
