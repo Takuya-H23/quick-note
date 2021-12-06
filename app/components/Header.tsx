@@ -20,15 +20,26 @@ export default function Header() {
         onClose={handleClose}
         className="fixed inset-y-0 overflow-y-auto bg-gray-700 text-gray-50 right-0 w-2/3 p-6"
       >
-        <Dialog.Overlay />
+        <Dialog.Overlay className="fixed inset-0 bg-gray-900 bg-opacity-80" />
         <div className="relative">
           <nav>
-            <button className="absolute inset-y-0 right-0">
+            <button className="absolute top-0 right-0">
               <IoMdClose onClick={handleClose} className="w-8 h-8" />
             </button>
             <ul>
-              <li>
+              <li onClick={handleClose}>
                 <Link to="/">Home</Link>
+              </li>
+              <li onClick={handleClose}>
+                <Link to="/register">Register</Link>
+              </li>
+              <li onClick={handleClose}>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <form method="post" action="/logout">
+                  <button type="submit">Logout</button>
+                </form>
               </li>
             </ul>
           </nav>
