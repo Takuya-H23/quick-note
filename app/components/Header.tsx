@@ -11,22 +11,24 @@ export default function Header() {
 
   return (
     <header className="flex justify-between items-center">
-      <h1 className="font-bold text-3xl">Quick Note</h1>
+      <Link to="/">
+        <h1 className="font-bold text-3xl md:text-5xl">Quick Note</h1>
+      </Link>
       <button onClick={handleOpen}>
         <BiMenu className="w-8 h-8" />
       </button>
       <Dialog
         open={isOpen}
         onClose={handleClose}
-        className="fixed inset-y-0 overflow-y-auto bg-gray-700 text-gray-50 right-0 w-2/3 p-6"
+        className="fixed inset-y-0 overflow-y-auto bg-gray-700 text-gray-50 right-0 w-2/3 p-6 md:w-1/3"
       >
-        <Dialog.Overlay className="fixed inset-0 bg-gray-900 bg-opacity-80" />
+        <Dialog.Overlay className="fixed inset-0 bg-gray-900 bg-opacity-70" />
         <div className="relative">
           <nav>
-            <button className="absolute top-0 right-0">
-              <IoMdClose onClick={handleClose} className="w-8 h-8" />
-            </button>
-            <ul>
+            <div className="flex">
+              <IoMdClose onClick={handleClose} className="w-8 h-8 ml-auto" />
+            </div>
+            <ul className="flex flex-col gap-y-4">
               <li onClick={handleClose}>
                 <Link to="/">Home</Link>
               </li>
