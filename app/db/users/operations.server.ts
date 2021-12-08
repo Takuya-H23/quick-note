@@ -2,7 +2,8 @@ import { client } from '../client.server'
 import {
   countEmailQuery,
   createUserQuery,
-  getUserByEmailQuery
+  getUserByEmailQuery,
+  getUserByIdQuery
 } from './queries'
 import { extractHead } from '~/utils/functions'
 
@@ -17,6 +18,9 @@ export const countUserByEmail = (email: string) =>
 
 export const getUserByEmail = (email: string) =>
   client.query(getUserByEmailQuery, [email]).then(extractHead)
+
+export const getUserById = (id: string) =>
+  client.query(getUserByIdQuery, [id]).then(extractHead)
 
 export const createUser = ({
   name,

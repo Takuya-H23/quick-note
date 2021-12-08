@@ -20,9 +20,7 @@ export let links: LinksFunction = () => {
 export default function App() {
   return (
     <Document>
-      <Layout>
-        <Outlet />
-      </Layout>
+      <Outlet />
     </Document>
   )
 }

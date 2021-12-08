@@ -1,5 +1,11 @@
-import { Link } from 'remix'
-import type { MetaFunction } from 'remix'
+import { Link, useLoaderData } from 'remix'
+
+import { getUserId } from '~/utils/session.server'
+import { getUserById } from '~/db/users/operations.server'
+
+import { Layout } from '~/components'
+
+import type { MetaFunction, LoaderFunction } from 'remix'
 
 export const meta: MetaFunction = () => {
   return {
@@ -8,9 +14,20 @@ export const meta: MetaFunction = () => {
   }
 }
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const userId = await getUserId(request)
+
+  if (userId) {
+    return await getUserById(userId)
+  } else {
+    return null
+  }
+}
+
 export default function Index() {
+  const user = useLoaderData()
   return (
-    <div>
+    <Layout isLoggedIn={Boolean(user)}>
       <h2 className="text-2xl font-bold">Welcome to Quick Note👋</h2>
       <section className="mt-12 flex flex-col gap-y-8">
         <div className="flex flex-col gap-y-4">
@@ -49,7 +66,37 @@ export default function Index() {
             app if there is a need 👍
           </p>
         </div>
+        <div className="flex flex-col gap-y-4">
+          <h3 className="text-xl font-medium">Is Quick Note free?</h3>
+          <p className="leading-7">
+            Totally! There's no need to payment methods.
+          </p>
+        </div>
+        <div className="flex flex-col gap-y-4">
+          <h3 className="text-xl font-medium">
+            Are you developing a mobile app of Quick Note?
+          </h3>
+          <p className="leading-7">
+            At this moment, my answer is no. But I'm happy to develop a mobile
+            app if there is a need 👍
+          </p>
+        </div>
+        <div className="flex flex-col gap-y-4">
+          <h3 className="text-xl font-medium">Is Quick Note free?</h3>
+          <p className="leading-7">
+            Totally! There's no need to payment methods.
+          </p>
+        </div>
+        <div className="flex flex-col gap-y-4">
+          <h3 className="text-xl font-medium">
+            Are you developing a mobile app of Quick Note?
+          </h3>
+          <p className="leading-7">
+            At this moment, my answer is no. But I'm happy to develop a mobile
+            app if there is a need 👍
+          </p>
+        </div>
       </section>
-    </div>
+    </Layout>
   )
 }
