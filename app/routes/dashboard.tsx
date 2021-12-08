@@ -1,5 +1,7 @@
 import { requiredUserId } from '~/utils/session.server'
 
+import { Layout } from '~/components'
+
 import type { LoaderFunction } from 'remix'
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -9,5 +11,5 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function Dashboard() {
-  return <div>Dashboard</div>
+  return <Layout isLoggedIn>Dashboard</Layout>
 }
