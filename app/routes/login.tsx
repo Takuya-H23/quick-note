@@ -1,12 +1,11 @@
 import { useActionData } from 'remix'
-import { identity } from 'ramda'
 import { Either } from 'fts-utils'
 
 import { getUserByEmail } from '~/db/users/operations.server'
 import { doPasswordsMatch } from '~/utils/bcrypt.server'
 import { startUserSession } from '~/utils/session.server'
 import { getFields, areAllString } from '~/utils/functions'
-import { Layout } from '~/components'
+import { Fieldset, Layout, Input } from '~/components'
 
 import type { ActionFunction } from 'remix'
 
@@ -63,32 +62,34 @@ export default function Login() {
 
   return (
     <Layout>
-      <form method="post" className="flex flex-col gap-y-6">
-        <div className="flex flex-col gap-y-2">
-          <label htmlFor="name">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            className="p-1.5 rounded-sm text-gray-900"
-            defaultValue={fields?.email}
-          />
-          <p>{fieldErrors?.email || ''}</p>
-        </div>
-        <div className="flex flex-col gap-y-2">
-          <label htmlFor="email">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className="p-1.5 rounded-sm text-gray-900"
-          />
-          <p>{fieldErrors?.password || ''}</p>
-        </div>
-        <button type="submit" className="px-4 py-2 bg-yellow-400 text-gray-900">
-          Login
-        </button>
-        {formError && <p className="text-center">{formError}</p>}
+      <form method="post">
+        <Fieldset legend="Login">
+          <div className="flex flex-col gap-y-6">
+            <Input
+              label="Name"
+              id="email"
+              name="email"
+              type="email"
+              defaultValue={fields?.email}
+              errorMessage={fieldErrors?.email}
+            />
+            <Input
+              label="Password"
+              id="password"
+              name="password"
+              type="password"
+              defaultValue={fields?.password}
+              errorMessage={fieldErrors?.password}
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 bg-yellow-400 text-gray-900 mt-6 w-2/3 self-center rounded-sm"
+            >
+              Login
+            </button>
+            {formError && <p className="text-center">{formError}</p>}
+          </div>
+        </Fieldset>
       </form>
     </Layout>
   )
