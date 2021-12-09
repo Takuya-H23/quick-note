@@ -4,7 +4,7 @@ import { countUserByEmail, createUser } from '~/db/users/operations.server'
 import { hashPassword } from '~/utils/bcrypt.server'
 import { startUserSession } from '~/utils/session.server'
 import { getFields, areAllString } from '~/utils/functions'
-import { Fieldset, Input, Layout } from '~/components'
+import { Fieldset, Input, Layout, Button } from '~/components'
 
 import type { ActionFunction } from 'remix'
 
@@ -79,12 +79,9 @@ export default function Register() {
               name="password"
               id="password"
             />
-            <button
-              type="submit"
-              className="px-4 py-2 bg-yellow-400 text-gray-900 mt-6 w-2/3 self-center rounded-sm"
-            >
-              Register
-            </button>
+            <div className="w-2/3 self-center">
+              <Button type="submit">Register</Button>
+            </div>
             {formError && <p className="text-center">{formError}</p>}
           </div>
         </Fieldset>
