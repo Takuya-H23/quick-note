@@ -5,7 +5,7 @@ import { getUserByEmail } from '~/db/users/operations.server'
 import { doPasswordsMatch } from '~/utils/bcrypt.server'
 import { startUserSession } from '~/utils/session.server'
 import { getFields, areAllString } from '~/utils/functions'
-import { Fieldset, Layout, Input } from '~/components'
+import { Fieldset, Layout, Input, Button } from '~/components'
 
 import type { ActionFunction } from 'remix'
 
@@ -81,12 +81,9 @@ export default function Login() {
               defaultValue={fields?.password}
               errorMessage={fieldErrors?.password}
             />
-            <button
-              type="submit"
-              className="px-4 py-2 bg-yellow-400 text-gray-900 mt-6 w-2/3 self-center rounded-sm"
-            >
-              Login
-            </button>
+            <div className="w-2/3 self-center mt-6">
+              <Button type="submit">Login</Button>
+            </div>
             {formError && <p className="text-center">{formError}</p>}
           </div>
         </Fieldset>
