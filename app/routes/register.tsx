@@ -4,7 +4,7 @@ import { countUserByEmail, createUser } from '~/db/users/operations.server'
 import { hashPassword } from '~/utils/bcrypt.server'
 import { startUserSession } from '~/utils/session.server'
 import { getFields, areAllString } from '~/utils/functions'
-import { Layout } from '~/components'
+import { Fieldset, Input, Layout } from '~/components'
 
 import type { ActionFunction } from 'remix'
 
@@ -49,46 +49,45 @@ export const action: ActionFunction = async ({
 }
 
 export default function Register() {
-  const { fields, fieldErrors } = useActionData() || {}
+  const { fields, fieldErrors, formError } = useActionData() || {}
 
   return (
     <Layout isLoggedIn={false}>
-      <form method="post" className="flex flex-col gap-y-4">
-        <div className="flex flex-col gap-y-2">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            className="p-1.5 rounded-sm text-gray-900"
-            defaultValue={fields?.name}
-          />
-          <p>{fieldErrors?.name || ''}</p>
-        </div>
-        <div className="flex flex-col gap-y-2">
-          <label htmlFor="email">Email</label>
-          <input
-            defaultValue={fields?.email}
-            type="email"
-            name="email"
-            id="email"
-            className="p-1.5 rounded-sm text-gray-900"
-          />
-          <p>{fieldErrors?.email || ''}</p>
-        </div>
-        <div className="flex flex-col gap-y-2">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className="p-1.5 rounded-sm text-gray-900"
-          />
-          <p>{fieldErrors?.password || ''}</p>
-        </div>
-        <button type="submit" className="px-4 py-2 bg-yellow-400 text-gray-900">
-          Register
-        </button>
+      <form method="post">
+        <Fieldset legend="Register">
+          <div className="flex flex-col gap-y-6">
+            <Input
+              label="Name"
+              name="name"
+              id="name"
+              defaultValue={fields?.name}
+              errorMessage={fieldErrors?.name}
+            />
+            <Input
+              label="Email"
+              defaultValue={fields?.email}
+              errorMessage={fieldErrors?.email}
+              type="email"
+              name="email"
+              id="email"
+            />
+            <Input
+              label="Password"
+              defaultValue={fields?.password}
+              errorMessage={fieldErrors?.password}
+              type="password"
+              name="password"
+              id="password"
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 bg-yellow-400 text-gray-900 mt-6 w-2/3 self-center rounded-sm"
+            >
+              Register
+            </button>
+            {formError && <p className="text-center">{formError}</p>}
+          </div>
+        </Fieldset>
       </form>
     </Layout>
   )
