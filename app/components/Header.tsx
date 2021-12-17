@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Link } from 'remix'
 import { BiMenu } from 'react-icons/bi'
 import { IoMdClose } from 'react-icons/io'
+import { CgMenu } from 'react-icons/cg'
 
 import { useBodyScrollControl } from '~/hooks'
 
@@ -40,7 +41,7 @@ export default function Header({ isLoggedIn }: Props) {
         <h1 className="font-bold text-3xl md:text-5xl">Quick Note</h1>
       </Link>
       <button onClick={handleOpen}>
-        <BiMenu className="w-8 h-8" />
+        <CgMenu className="w-8 h-8" />
       </button>
       <div
         className="p-6 overflow-y-scroll fixed top-0 bottom-0 right-0  bg-gray-600 w-1/2"
@@ -59,13 +60,18 @@ export default function Header({ isLoggedIn }: Props) {
               <Link to="/">Home</Link>
             </li>
             {isLoggedIn ? (
-              <li>
-                <form method="post" action="/logout">
-                  <button ref={last} type="submit">
-                    Logout
-                  </button>
-                </form>
-              </li>
+              <>
+                <li>
+                  <form method="post" action="/logout">
+                    <button ref={last} type="submit">
+                      Logout
+                    </button>
+                  </form>
+                </li>
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+              </>
             ) : (
               <>
                 <li>

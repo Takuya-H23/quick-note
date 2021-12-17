@@ -5,6 +5,7 @@ type Props = {
   label: string
   defaultValue?: string
   errorMessage?: string
+  autoComplete?: string
 }
 
 export default function Input({
@@ -13,7 +14,8 @@ export default function Input({
   id,
   name,
   defaultValue,
-  errorMessage
+  errorMessage,
+  autoComplete = 'on'
 }: Props) {
   return (
     <div className="flex flex-col gap-y-1">
@@ -24,8 +26,9 @@ export default function Input({
         id={id}
         className="p-1.5 rounded-sm text-gray-900"
         defaultValue={defaultValue}
+        autoComplete={autoComplete}
       />
-      <p>{errorMessage || ''}</p>
+      <p className="text-sm text-red-500">{errorMessage || ''}</p>
     </div>
   )
 }
