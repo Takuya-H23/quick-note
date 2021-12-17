@@ -38,4 +38,25 @@ describe('getFields', () => {
       role: 'Admin'
     })
   })
+
+  test('should remove undefined from field object', () => {
+    const keys = ['firstName', 'lastName', 'role']
+
+    const formData: Record<string, any> = {
+      firstName: 'John',
+      lastName: 'Doe',
+      get: function (key: string) {
+        return this[key]
+      }
+    }
+
+    const res = getFields(keys, formData as any)
+
+    expect(res).toEqual({
+      firstName: 'John',
+      lastName: 'Doe'
+    })
+
+    expect(res).not.toHaveProperty('role')
+  })
 })
