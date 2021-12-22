@@ -548,6 +548,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   row-gap: 2rem;
 }
 
+.gap-x-2 {
+  -moz-column-gap: 0.5rem;
+       column-gap: 0.5rem;
+}
+
 .self-center {
   align-self: center;
 }
