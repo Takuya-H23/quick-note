@@ -1,6 +1,6 @@
 import { compose, head, prop, reduce } from 'ramda'
 
-type ExtractHead = (_x: { rows: any }) => any
+type Response = (_x: { rows: any }) => any
 
 type Fields = Record<string, string | undefined>
 
@@ -9,9 +9,9 @@ export const areAllString = (fields: Fields): boolean =>
 
 export const isString = (x: any) => typeof x === 'string'
 
-export const extractHead: ExtractHead = compose(head, prop('rows'))
+export const extractHead: Response = compose(head, prop('rows'))
 
-export const extractRows: ExtractHead = compose(prop('rows'))
+export const extractRows: Response = compose(prop('rows'))
 
 export const getFields = (
   keys: string[],

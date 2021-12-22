@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'remix'
-import { BiMenu } from 'react-icons/bi'
 import { IoMdClose } from 'react-icons/io'
 import { CgMenu } from 'react-icons/cg'
 
@@ -62,14 +61,17 @@ export default function Header({ isLoggedIn }: Props) {
             {isLoggedIn ? (
               <>
                 <li>
+                  <Link to="/notes">Notes</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+                <li>
                   <form method="post" action="/logout">
                     <button ref={last} type="submit">
                       Logout
                     </button>
                   </form>
-                </li>
-                <li>
-                  <Link to="/dashboard">Dashboard</Link>
                 </li>
               </>
             ) : (
