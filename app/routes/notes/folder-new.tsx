@@ -1,6 +1,7 @@
 import { redirect, useActionData } from 'remix'
+import { isEmpty } from 'ramda'
 
-import { isLengthValid } from '~/utils/validations'
+import { validateFolderForm } from '~/utils/validations'
 import { requiredUserId, getUserId } from '~/utils/session.server'
 import { createFolder } from '~/db/notes/operations.server'
 import { getFields, areAllString } from '~/utils/functions'
@@ -32,11 +33,11 @@ export const action: ActionFunction = async ({
       formError: 'Form was not submitted correctly'
     }
 
-  if (!isLengthValid(1, fields.name))
+  const fieldErrors = validateFolderForm(fields)
+
+  if (!isEmpty(fieldErrors))
     return {
-      fieldErrors: {
-        name: 'Minimum length is 1'
-      },
+      fieldErrors: fieldErrors as { name: string },
       fields
     }
 
