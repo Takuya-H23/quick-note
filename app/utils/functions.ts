@@ -1,4 +1,4 @@
-import { compose, head, prop, reduce } from 'ramda'
+import { map, compose, head, prop, reduce } from 'ramda'
 
 type Response = (_x: { rows: any }) => any
 
@@ -12,6 +12,8 @@ export const isString = (x: any) => typeof x === 'string'
 export const extractHead: Response = compose(head, prop('rows'))
 
 export const extractRows: Response = compose(prop('rows'))
+
+export const mapExtractRows = map(extractRows)
 
 export const getFields = (
   keys: string[],
