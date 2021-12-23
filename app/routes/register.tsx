@@ -4,7 +4,7 @@ import { countUserByEmail, createUser } from '~/db/users/operations.server'
 import { hashPassword } from '~/utils/bcrypt.server'
 import { startUserSession } from '~/utils/session.server'
 import { getFields, areAllString } from '~/utils/functions'
-import { Fieldset, Input, Layout, Button } from '~/components'
+import { Fieldset, Input, Button } from '~/components'
 
 import type { ActionFunction } from 'remix'
 
@@ -52,40 +52,38 @@ export default function Register() {
   const { fields, fieldErrors, formError } = useActionData() || {}
 
   return (
-    <Layout isLoggedIn={false}>
-      <form method="post">
-        <Fieldset legend="Register">
-          <div className="flex flex-col gap-y-6">
-            <Input
-              label="Name"
-              name="name"
-              id="name"
-              defaultValue={fields?.name}
-              errorMessage={fieldErrors?.name}
-            />
-            <Input
-              label="Email"
-              defaultValue={fields?.email}
-              errorMessage={fieldErrors?.email}
-              type="email"
-              name="email"
-              id="email"
-            />
-            <Input
-              label="Password"
-              defaultValue={fields?.password}
-              errorMessage={fieldErrors?.password}
-              type="password"
-              name="password"
-              id="password"
-            />
-            <div className="w-2/3 self-center">
-              <Button type="submit">Register</Button>
-            </div>
-            {formError && <p className="text-center">{formError}</p>}
+    <form method="post">
+      <Fieldset legend="Register">
+        <div className="flex flex-col gap-y-6">
+          <Input
+            label="Name"
+            name="name"
+            id="name"
+            defaultValue={fields?.name}
+            errorMessage={fieldErrors?.name}
+          />
+          <Input
+            label="Email"
+            defaultValue={fields?.email}
+            errorMessage={fieldErrors?.email}
+            type="email"
+            name="email"
+            id="email"
+          />
+          <Input
+            label="Password"
+            defaultValue={fields?.password}
+            errorMessage={fieldErrors?.password}
+            type="password"
+            name="password"
+            id="password"
+          />
+          <div className="w-2/3 self-center">
+            <Button type="submit">Register</Button>
           </div>
-        </Fieldset>
-      </form>
-    </Layout>
+          {formError && <p className="text-center">{formError}</p>}
+        </div>
+      </Fieldset>
+    </form>
   )
 }

@@ -1,11 +1,6 @@
-import { Link, useLoaderData } from 'remix'
+import { Link } from 'remix'
 
-import { getUserId } from '~/utils/session.server'
-import { getUserById } from '~/db/users/operations.server'
-
-import { Layout } from '~/components'
-
-import type { MetaFunction, LoaderFunction } from 'remix'
+import type { MetaFunction } from 'remix'
 
 export const meta: MetaFunction = () => {
   return {
@@ -14,20 +9,9 @@ export const meta: MetaFunction = () => {
   }
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const userId = await getUserId(request)
-
-  if (userId) {
-    return await getUserById(userId)
-  } else {
-    return null
-  }
-}
-
 export default function Index() {
-  const user = useLoaderData()
   return (
-    <Layout isLoggedIn={Boolean(user)}>
+    <div>
       <h2 className="text-2xl font-bold">Welcome to Quick Note👋</h2>
       <section className="mt-12 flex flex-col gap-y-8">
         <div className="flex flex-col gap-y-4">
@@ -97,6 +81,6 @@ export default function Index() {
           </p>
         </div>
       </section>
-    </Layout>
+    </div>
   )
 }

@@ -4,7 +4,6 @@ import { BiMessageSquareAdd, BiFolder } from 'react-icons/bi'
 
 import { requiredUserId } from '~/utils/session.server'
 import { getFolders } from '~/db/notes/operations.server'
-import { Layout } from '~/components'
 
 import type { LoaderFunction } from 'remix'
 
@@ -30,18 +29,16 @@ export default function NotesIndex() {
   const d = useLoaderData()
 
   return (
-    <Layout isLoggedIn>
-      <section>
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-medium">Folders</h2>
-          <button>
-            <Link to="folder-new">
-              <BiMessageSquareAdd className="h-8 w-8" />
-            </Link>
-          </button>
-        </div>
-        <ul className="mt-6">{folderRenderer(d.folders)}</ul>
-      </section>
-    </Layout>
+    <section>
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-medium">Folders</h2>
+        <button>
+          <Link to="folder-new">
+            <BiMessageSquareAdd className="h-8 w-8" />
+          </Link>
+        </button>
+      </div>
+      <ul className="mt-6">{folderRenderer(d.folders)}</ul>
+    </section>
   )
 }

@@ -5,22 +5,32 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch
+  useCatch,
+  useLoaderData
 } from 'remix'
 import type { LinksFunction } from 'remix'
 
+import { getUserId } from '~/utils/session.server'
 import { Layout } from '~/components'
 
 import tailwindUrl from './tailwind.css'
+
+import type { LoaderFunction } from 'remix'
 
 export let links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: tailwindUrl }]
 }
 
+export const loader: LoaderFunction = async ({ request }) =>
+  await getUserId(request)
+
 export default function App() {
+  const userId = useLoaderData()
   return (
     <Document>
-      <Outlet />
+      <Layout isLoggedIn={Boolean(userId)}>
+        <Outlet />
+      </Layout>
     </Document>
   )
 }
