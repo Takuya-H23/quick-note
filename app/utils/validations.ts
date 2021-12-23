@@ -44,6 +44,32 @@ export const validate =
 
 export const validatePassword: Predicate = Predicate(isValidPassword)
 
+export const validateRegisterForm = validate({
+  predicates: {
+    name: Predicate(hasRequiredLength(2)),
+    email: Predicate(isValidEmail),
+    password: Predicate(isValidPassword)
+  },
+  errors: {
+    name: 'Name must have at least 2 characters',
+    email: 'Email is not valid',
+    password:
+      'Password must have at least 1 alphabet, 1 special character, and 1 number. Min length is 8'
+  }
+})
+
+export const validateLoginForm = validate({
+  predicates: {
+    email: Predicate(isValidEmail),
+    password: Predicate(isValidPassword)
+  },
+  errors: {
+    email: 'Email is not valid',
+    password:
+      'Password must have at least 1 alphabet, 1 special character, and 1 number. Min length is 8'
+  }
+})
+
 export const validateFolderForm = validate({
   predicates: { name: Predicate(hasRequiredLength(2)) },
   errors: { name: 'Folder name must have at least 2 characters' }
@@ -57,17 +83,5 @@ export const validateNoteForm = validate({
   errors: {
     title: 'Title must have at least 2 characters',
     description: 'Description must have at least 2 characters'
-  }
-})
-
-export const validateLoginForm = validate({
-  predicates: {
-    email: Predicate(isValidEmail),
-    password: Predicate(isValidPassword)
-  },
-  errors: {
-    email: 'Email is not valid',
-    password:
-      'Password must have at least 1 alphabet, 1 special character, and 1 number. Min length is 8'
   }
 })

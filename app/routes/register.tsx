@@ -1,8 +1,10 @@
 import { useActionData } from 'remix'
+import { isEmpty } from 'ramda'
 
 import { countUserByEmail, createUser } from '~/db/users/operations.server'
 import { hashPassword } from '~/utils/bcrypt.server'
 import { startUserSession } from '~/utils/session.server'
+import { validateRegisterForm } from '~/utils/validations'
 import { getFields, areAllString } from '~/utils/functions'
 import { Fieldset, Input, Button } from '~/components'
 
@@ -10,15 +12,8 @@ import type { ActionFunction } from 'remix'
 
 type ActionData = {
   formError?: string
-  fieldErrors?: {
-    name: string
-    email: string
-    password: string
-  }
-  fields?: {
-    name: string
-    email: string
-  }
+  fieldErrors?: Record<string, string>
+  fields?: Record<string, string>
 }
 
 export const action: ActionFunction = async ({
@@ -31,6 +26,14 @@ export const action: ActionFunction = async ({
   if (!areAllString(fields))
     return {
       formError: 'Form was not submitted correctly'
+    }
+
+  const fieldErrors = validateRegisterForm(fields)
+
+  if (!isEmpty(fieldErrors))
+    return {
+      fieldErrors,
+      fields
     }
 
   const { name, email, password } = fields
