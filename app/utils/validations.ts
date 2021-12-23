@@ -30,7 +30,11 @@ export const validate =
   (fields: Record<string, string>) =>
     reduce(
       (acc: Record<string, string>, [key, value]) =>
-        predicates[key].run(value) ? acc : { ...acc, [key]: errors[key] },
+        !predicates[key]
+          ? acc
+          : predicates[key].run(value)
+          ? acc
+          : { ...acc, [key]: errors[key] },
       {},
       Object.entries(fields)
     )
@@ -40,4 +44,15 @@ export const validatePassword: Predicate = Predicate(isValidPassword)
 export const validateFolderForm = validate({
   predicates: { name: Predicate(hasRequiredLength(2)) },
   errors: { name: 'Folder name must have at least 2 characters' }
+})
+
+export const validateNoteForm = validate({
+  predicates: {
+    title: Predicate(hasRequiredLength(2)),
+    description: Predicate(hasRequiredLength(2))
+  },
+  errors: {
+    title: 'Title must have at least 2 characters',
+    description: 'Description must have at least 2 characters'
+  }
 })

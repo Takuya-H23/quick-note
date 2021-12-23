@@ -1,18 +1,22 @@
-import { redirect } from 'remix'
+import { redirect, useActionData } from 'remix'
+import { isEmpty } from 'ramda'
 
 import { getFields, areAllString } from '~/utils/functions'
 import { requiredUserId, getUserId } from '~/utils/session.server'
 import { createNote } from '~/db/notes/operations.server'
+import { validateNoteForm } from '~/utils/validations'
 import { Fieldset, Input, Button, Textarea } from '~/components'
 
 import type { ActionFunction, LoaderFunction } from 'remix'
 
+type FieldErrors = {
+  title: string
+  description: string
+}
+
 type ActionData = {
   formError?: string
-  fieldErrors?: {
-    title: string
-    description: string
-  }
+  fieldErrors?: FieldErrors
   fields?: Record<string, string>
 }
 
@@ -32,6 +36,15 @@ export const action: ActionFunction = async ({
       formError: 'Form was not submitted correctly'
     }
 
+  const fieldErrors = validateNoteForm(fields)
+
+  if (!isEmpty(fieldErrors)) {
+    return {
+      fieldErrors: fieldErrors as FieldErrors,
+      fields
+    }
+  }
+
   const userId = await getUserId(request)
   const { folderId } = params
 
@@ -42,6 +55,8 @@ export const action: ActionFunction = async ({
 }
 
 export default function NoteNew() {
+  const { fieldErrors, fields } = useActionData() || {}
+
   return (
     <form method="post">
       <Fieldset legend="Create New Note">
@@ -52,6 +67,8 @@ export default function NoteNew() {
             name="title"
             autoComplete="off"
             placeholder="e.g Create new branch"
+            defaultValue={fields?.title}
+            errorMessage={fieldErrors?.title}
             required
           />
           <Input
@@ -60,12 +77,15 @@ export default function NoteNew() {
             name="copy"
             autoComplete="off"
             placeholder="e.g git checkout -b 'branchName'"
+            defaultValue={fields?.copy}
           />
           <Textarea
             id="description"
             label="Description"
             name="description"
             placeholder="e.g Create new branch in Git"
+            defaultValue={fields?.description}
+            errorMessage={fieldErrors?.description}
             required
           />
           <div className="w-2/3 self-center mt-6">

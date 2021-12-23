@@ -1,11 +1,6 @@
 import { Predicate } from 'fts-utils'
 
-import {
-  validate,
-  hasRequiredLength,
-  isValidPassword,
-  validatePassword
-} from '../validations'
+import { validate, hasRequiredLength, isValidPassword } from '../validations'
 
 describe('hasRequiredLength', () => {
   test.each([[''], ['hi'], ['cat']])(
