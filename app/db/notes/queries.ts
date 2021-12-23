@@ -11,10 +11,15 @@ export const readFoldersQuery = `
   SELECT * FROM folders WHERE $1 = folders.user_id
 `
 
+export const readNotesUnderFolderQuery = `
+  SELECT n.id, n.title, n.copy FROM notes AS n
+  WHERE n.user_id = $1 AND n.folder_id = $2
+`
+
 export const createFolderQuery = `
   INSERT INTO folders(name, user_id) VALUES($1, $2)
 `
 
 export const createNoteQuery = `
-  INSERT INTO notes(title, description, user_id, folder_id) VALUES($1, $2, $3, $4)
+  INSERT INTO notes(title, description, copy, user_id, folder_id) VALUES($1, $2, $3, $4, $5)
 `

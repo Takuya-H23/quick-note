@@ -25,7 +25,7 @@ export const action: ActionFunction = async ({
   params
 }): Promise<Response | ActionData> => {
   const formData = await request.formData()
-  const fields = getFields(['title', 'description'], formData)
+  const fields = getFields(['title', 'description', 'copy'], formData)
 
   if (!areAllString(fields))
     return {
