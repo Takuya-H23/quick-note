@@ -7,8 +7,8 @@ import {
 } from './queries'
 import { extractRows, extractHead } from '~/utils/functions'
 
-export const createFolder = ({ name, slug, userId }: Record<string, string>) =>
-  client.query(createFolderQuery, [name, slug, userId]).then(extractRows)
+export const createFolder = ({ name, userId }: Record<string, string>) =>
+  client.query(createFolderQuery, [name, userId]).then(extractRows)
 
 export const createNote = ({
   title,

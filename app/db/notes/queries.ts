@@ -12,7 +12,7 @@ export const readFoldersQuery = `
 `
 
 export const createFolderQuery = `
-  INSERT INTO folders(name, slug, user_id) VALUES($1, $2, $3)
+  INSERT INTO folders(name, user_id) VALUES($1, $2)
 `
 
 export const createNoteQuery = `
