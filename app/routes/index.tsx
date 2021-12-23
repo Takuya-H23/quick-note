@@ -37,39 +37,7 @@ export default function Index() {
         </div>
         <div className="flex flex-col gap-y-4">
           <h3 className="text-xl font-medium">Is Quick Note free?</h3>
-          <p className="leading-7">
-            Totally! There's no need to payment methods.
-          </p>
-        </div>
-        <div className="flex flex-col gap-y-4">
-          <h3 className="text-xl font-medium">
-            Are you developing a mobile app of Quick Note?
-          </h3>
-          <p className="leading-7">
-            At this moment, my answer is no. But I'm happy to develop a mobile
-            app if there is a need 👍
-          </p>
-        </div>
-        <div className="flex flex-col gap-y-4">
-          <h3 className="text-xl font-medium">Is Quick Note free?</h3>
-          <p className="leading-7">
-            Totally! There's no need to payment methods.
-          </p>
-        </div>
-        <div className="flex flex-col gap-y-4">
-          <h3 className="text-xl font-medium">
-            Are you developing a mobile app of Quick Note?
-          </h3>
-          <p className="leading-7">
-            At this moment, my answer is no. But I'm happy to develop a mobile
-            app if there is a need 👍
-          </p>
-        </div>
-        <div className="flex flex-col gap-y-4">
-          <h3 className="text-xl font-medium">Is Quick Note free?</h3>
-          <p className="leading-7">
-            Totally! There's no need to payment methods.
-          </p>
+          <p className="leading-7">Totally!</p>
         </div>
         <div className="flex flex-col gap-y-4">
           <h3 className="text-xl font-medium">
