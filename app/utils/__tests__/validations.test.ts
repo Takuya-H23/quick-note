@@ -1,6 +1,11 @@
 import { Predicate } from 'fts-utils'
 
-import { validate, hasRequiredLength, isValidPassword } from '../validations'
+import {
+  validate,
+  hasRequiredLength,
+  isValidPassword,
+  isValidEmail
+} from '../validations'
 
 describe('hasRequiredLength', () => {
   test.each([[''], ['hi'], ['cat']])(
@@ -30,6 +35,22 @@ describe('isValidPassword', () => {
     'should return true when password is valid',
     password => {
       expect(isValidPassword(password)).toBe(true)
+    }
+  )
+})
+
+describe('isValidEmail', () => {
+  test.each([['ssss'], ['email@.com']])(
+    'should return false when email is not valid',
+    password => {
+      expect(isValidEmail(password)).toBe(false)
+    }
+  )
+
+  test.each([['valid@test.com'], ['email23333@example.com']])(
+    'should return true when email is valid',
+    password => {
+      expect(isValidEmail(password)).toBe(true)
     }
   )
 })

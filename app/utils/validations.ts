@@ -25,6 +25,9 @@ export const isValidPassword = (password: string) =>
     password
   )
 
+export const isValidEmail = (email: string) =>
+  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+
 export const validate =
   ({ predicates, errors }: Validator) =>
   (fields: Record<string, string>) =>
@@ -54,5 +57,17 @@ export const validateNoteForm = validate({
   errors: {
     title: 'Title must have at least 2 characters',
     description: 'Description must have at least 2 characters'
+  }
+})
+
+export const validateLoginForm = validate({
+  predicates: {
+    email: Predicate(isValidEmail),
+    password: Predicate(isValidPassword)
+  },
+  errors: {
+    email: 'Email is not valid',
+    password:
+      'Password must have at least 1 alphabet, 1 special character, and 1 number. Min length is 8'
   }
 })

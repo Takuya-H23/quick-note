@@ -1,13 +1,20 @@
 import { useActionData } from 'remix'
+import { isEmpty } from 'ramda'
 import { Either } from 'fts-utils'
 
 import { getUserByEmail } from '~/db/users/operations.server'
 import { doPasswordsMatch } from '~/utils/bcrypt.server'
 import { startUserSession } from '~/utils/session.server'
+import { validateLoginForm } from '~/utils/validations'
 import { getFields, areAllString } from '~/utils/functions'
 import { Fieldset, Input, Button } from '~/components'
 
 import type { ActionFunction } from 'remix'
+
+type FieldErrors = {
+  email: string
+  password: string
+}
 
 type User = {
   id: string
@@ -17,13 +24,8 @@ type User = {
 
 type ActionData = {
   formError?: string
-  fieldErrors?: {
-    email: string
-    password: string
-  }
-  fields?: {
-    email: string
-  }
+  fieldErrors?: FieldErrors
+  fields?: Record<string, string>
 }
 
 export const action: ActionFunction = async ({
@@ -37,6 +39,11 @@ export const action: ActionFunction = async ({
     return {
       formError: 'Form was not submitted correctly'
     }
+
+  const fieldErrors = validateLoginForm(fields)
+
+  if (!isEmpty(fieldErrors))
+    return { fields, fieldErrors: fieldErrors as FieldErrors }
 
   const user = await getUserByEmail(fields.email as string)
 
@@ -65,7 +72,7 @@ export default function Login() {
       <Fieldset legend="Login">
         <div className="flex flex-col gap-y-6">
           <Input
-            label="Name"
+            label="Email"
             id="email"
             name="email"
             type="email"
