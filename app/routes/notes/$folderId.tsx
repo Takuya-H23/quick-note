@@ -4,16 +4,13 @@ import { map } from 'ramda'
 
 import { requiredUserId } from '~/utils/session.server'
 import { getFolderWithNotes } from '~/db/notes/operations.server'
-import { Layout } from '~/components'
+import { Layout, NoteCard } from '~/components'
 
 import type { LoaderFunction } from 'remix'
 
-const noteRenderer = map(({ id, title, copy }) => (
-  <li key={id} className="border border-gray-50 p-4 rounded-sm">
-    <Link to={`/notes/${id}`}>
-      <div>{title}</div>
-      <div>{copy}</div>
-    </Link>
+const noteRenderer = map((note: any) => (
+  <li key={note.id} className="border border-gray-50 p-4 rounded-sm">
+    <NoteCard {...note} />
   </li>
 ))
 
