@@ -21,10 +21,6 @@ export default function Header({ isLoggedIn }: Props) {
   useBodyScrollControl(isOpen)
 
   useEffect(() => {
-    return () => setIsOpen(false)
-  }, [])
-
-  useEffect(() => {
     const fn = handleFocus(
       first as RefObject<HTMLButtonElement>,
       last as RefObject<HTMLButtonElement>
@@ -55,18 +51,18 @@ export default function Header({ isLoggedIn }: Props) {
             <IoMdClose className="w-8 h-8 ml-auto" />
           </button>
           <ul className="flex flex-col gap-y-4">
-            <li>
+            <li onClick={handleClose}>
               <Link to="/">Home</Link>
             </li>
             {isLoggedIn ? (
               <>
-                <li>
+                <li onClick={handleClose}>
                   <Link to="/notes">Notes</Link>
                 </li>
                 <li>
                   <Link to="/dashboard">Dashboard</Link>
                 </li>
-                <li>
+                <li onClick={handleClose}>
                   <form method="post" action="/logout">
                     <button ref={last} type="submit">
                       Logout
@@ -76,10 +72,10 @@ export default function Header({ isLoggedIn }: Props) {
               </>
             ) : (
               <>
-                <li>
+                <li onClick={handleClose}>
                   <Link to="/register">Register</Link>
                 </li>
-                <li>
+                <li onClick={handleClose}>
                   <Link to="/login">Login</Link>
                 </li>
               </>

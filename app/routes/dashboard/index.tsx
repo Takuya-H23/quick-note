@@ -1,7 +1,5 @@
 import { requiredUserId } from '~/utils/session.server'
 
-import { Layout } from '~/components'
-
 import type { LoaderFunction } from 'remix'
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -10,9 +8,5 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function DashboardIndex() {
-  return (
-    <Layout isLoggedIn>
-      <section>dashboard</section>
-    </Layout>
-  )
+  return <section>dashboard</section>
 }
