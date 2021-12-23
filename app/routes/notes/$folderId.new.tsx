@@ -52,13 +52,22 @@ export default function NoteNew() {
               label="Title"
               name="title"
               autoComplete="off"
-              placeholder="e.g Copy"
+              placeholder="e.g Create new branch"
+              required
+            />
+            <Input
+              id="copy"
+              label="Copy"
+              name="copy"
+              autoComplete="off"
+              placeholder="e.g git checkout -b 'branchName'"
             />
             <Textarea
               id="description"
               label="Description"
               name="description"
-              placeholder="e.g Copy text"
+              placeholder="e.g Create new branch in Git"
+              required
             />
             <div className="w-2/3 self-center mt-6">
               <Button type="submit">Create</Button>

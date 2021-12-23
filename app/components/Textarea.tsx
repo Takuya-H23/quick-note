@@ -2,6 +2,7 @@ type Props = {
   id: string
   name: string
   label: string
+  required?: boolean
   rows?: number
   cols?: number
   defaultValue?: string
@@ -18,11 +19,12 @@ export default function Textarea({
   errorMessage,
   cols,
   rows = 3,
+  required = false,
   placeholder = ''
 }: Props) {
   return (
     <div className="flex flex-col gap-y-1">
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{`${label}${required ? '*' : ''}`}</label>
       <textarea
         name={name}
         id={id}
@@ -31,6 +33,7 @@ export default function Textarea({
         className="p-1.5 rounded-sm text-gray-900"
         defaultValue={defaultValue}
         placeholder={placeholder}
+        required={required}
       />
       <p className="text-sm text-red-500">{errorMessage || ''}</p>
     </div>

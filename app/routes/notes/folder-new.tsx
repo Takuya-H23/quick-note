@@ -16,7 +16,6 @@ type ActionData = {
   formError?: string
   fieldErrors?: {
     name: string
-    slug: string
   }
   fields?: Record<string, string>
 }
@@ -36,8 +35,7 @@ export const action: ActionFunction = async ({
   if (!isLengthValid(1, fields.name))
     return {
       fieldErrors: {
-        name: 'Minimum length is 1',
-        slug: 'Slug must be words separated by "-"'
+        name: 'Minimum length is 1'
       },
       fields
     }
@@ -65,15 +63,7 @@ export default function FolderNew() {
               defaultValue={fields?.name}
               errorMessage={fieldErrors?.name}
               placeholder="e.g My Custom Shortcuts"
-            />
-            <Input
-              id="slug"
-              label="Slug"
-              name="slug"
-              autoComplete="off"
-              defaultValue={fields?.slug}
-              errorMessage={fieldErrors?.slug}
-              placeholder="e.g my-custom-shortcuts"
+              required
             />
             <div className="w-2/3 self-center mt-6">
               <Button type="submit">Create</Button>
