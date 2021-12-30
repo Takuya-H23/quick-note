@@ -1,6 +1,8 @@
 import { curry, reduce } from 'ramda'
 import { Predicate } from 'fts-utils'
+
 import type { Predicate as PredicateType } from 'fts-utils'
+import type { FieldErrors } from '~/types'
 
 type Validator = {
   predicates: Record<string, PredicateType>
@@ -22,7 +24,7 @@ export const isValidEmail = (email: string) =>
 
 export const validate =
   ({ predicates, errors }: Validator) =>
-  (fields: Record<string, string>) =>
+  (fields: FieldErrors) =>
     reduce(
       (acc: Record<string, string>, [key, value]) =>
         !predicates[key]

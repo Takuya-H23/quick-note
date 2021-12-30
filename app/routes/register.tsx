@@ -9,12 +9,7 @@ import { getFields, areAllString } from '~/utils/functions'
 import { Fieldset, Input, Button } from '~/components'
 
 import type { ActionFunction } from 'remix'
-
-type ActionData = {
-  formError?: string
-  fieldErrors?: Record<string, string>
-  fields?: Record<string, string>
-}
+import { ActionData } from '~/types'
 
 export const action: ActionFunction = async ({
   request
@@ -38,10 +33,11 @@ export const action: ActionFunction = async ({
 
   const { name, email, password } = fields
 
-  const { count } = await countUserByEmail(email as string)
+  const { count } = await countUserByEmail(email)
+
   if (Number(count)) return { formError: 'User already exists' }
 
-  const passwordHash = hashPassword(password as string)
+  const passwordHash = hashPassword(password)
 
   const user = await createUser({ name, email, passwordHash } as Record<
     'name' | 'email' | 'passwordHash',

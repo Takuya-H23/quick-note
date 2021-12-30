@@ -1,6 +1,6 @@
 import { useActionData } from 'remix'
 import { isEmpty } from 'ramda'
-import { Either } from 'fts-utils'
+import { Right, Left, fromNullable } from 'fts-utils'
 
 import { getUserByEmail } from '~/db/users/operations.server'
 import { doPasswordsMatch } from '~/utils/bcrypt.server'
@@ -9,24 +9,14 @@ import { validateLoginForm } from '~/utils/validations'
 import { getFields, areAllString } from '~/utils/functions'
 import { Fieldset, Input, Button } from '~/components'
 
+const Either = {
+  Left,
+  Right,
+  fromNullable
+}
+
 import type { ActionFunction } from 'remix'
-
-type FieldErrors = {
-  email: string
-  password: string
-}
-
-type User = {
-  id: string
-  name: string
-  password_hash: string
-}
-
-type ActionData = {
-  formError?: string
-  fieldErrors?: FieldErrors
-  fields?: Record<string, string>
-}
+import type { ActionData, User } from '~/types'
 
 export const action: ActionFunction = async ({
   request
@@ -42,14 +32,13 @@ export const action: ActionFunction = async ({
 
   const fieldErrors = validateLoginForm(fields)
 
-  if (!isEmpty(fieldErrors))
-    return { fields, fieldErrors: fieldErrors as FieldErrors }
+  if (!isEmpty(fieldErrors)) return { fields, fieldErrors }
 
-  const user = await getUserByEmail(fields.email as string)
+  const user = await getUserByEmail(fields.email)
 
   const leftError = {
     formError: 'User not found',
-    fields: { email: fields.email as string }
+    fields: { email: fields.email }
   }
 
   return Either.fromNullable(user)
