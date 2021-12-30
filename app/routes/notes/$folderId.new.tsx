@@ -8,17 +8,7 @@ import { validateNoteForm } from '~/utils/validations'
 import { Fieldset, Input, Button, Textarea } from '~/components'
 
 import type { ActionFunction, LoaderFunction } from 'remix'
-
-type FieldErrors = {
-  title: string
-  description: string
-}
-
-type ActionData = {
-  formError?: string
-  fieldErrors?: FieldErrors
-  fields?: Record<string, string>
-}
+import type { FieldErrors, ActionData } from '~/types'
 
 export const loader: LoaderFunction = async ({ request }) => {
   return requiredUserId(request)

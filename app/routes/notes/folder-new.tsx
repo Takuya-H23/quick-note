@@ -8,17 +8,10 @@ import { getFields, areAllString } from '~/utils/functions'
 import { Fieldset, Input, Button } from '~/components'
 
 import type { ActionFunction, LoaderFunction } from 'remix'
+import type { ActionData } from '~/types'
 
 export const loader: LoaderFunction = async ({ request }) => {
   return await requiredUserId(request)
-}
-
-type ActionData = {
-  formError?: string
-  fieldErrors?: {
-    name: string
-  }
-  fields?: Record<string, string>
 }
 
 export const action: ActionFunction = async ({
@@ -37,7 +30,7 @@ export const action: ActionFunction = async ({
 
   if (!isEmpty(fieldErrors))
     return {
-      fieldErrors: fieldErrors as { name: string },
+      fieldErrors,
       fields
     }
 
