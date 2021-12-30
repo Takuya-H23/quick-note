@@ -1,17 +1,9 @@
 import { curry, reduce } from 'ramda'
 import { Predicate } from 'fts-utils'
-
-type Run = (x: any) => boolean
-type Contramap = (x: any) => any
-
-type Predicate = {
-  run: Run
-  concat: (other: Predicate) => Predicate
-  contramap: (f: Contramap) => Predicate
-}
+import type { Predicate as PredicateType } from 'fts-utils'
 
 type Validator = {
-  predicates: Record<string, Predicate>
+  predicates: Record<string, PredicateType>
   errors: Record<string, string>
 }
 
