@@ -15,7 +15,7 @@ export const hasRequiredLength = curry(
 
 // Required at least one alphabet, special character, and number
 export const isValidPassword = (password: string) =>
-  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_-])[A-Za-z\d@$!%*#?&]{8,}$/.test(
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_-])[A-Za-z\d@$_\-!%*#?&]{8,}$/.test(
     password
   )
 
@@ -70,14 +70,14 @@ export const validateLoginForm = validate({
 })
 
 export const validateFolderForm = validate({
-  predicates: { name: Predicate(hasRequiredLength(2)) },
+  predicates: { name: Predicate(hasRequiredLength(2)).contramap(prop('name')) },
   errors: { name: 'Folder name must have at least 2 characters' }
 })
 
 export const validateNoteForm = validate({
   predicates: {
-    title: Predicate(hasRequiredLength(2)),
-    description: Predicate(hasRequiredLength(2))
+    title: Predicate(hasRequiredLength(2)).contramap(prop('title')),
+    description: Predicate(hasRequiredLength(2)).contramap(prop('description'))
   },
   errors: {
     title: 'Title must have at least 2 characters',

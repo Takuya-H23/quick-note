@@ -1,3 +1,4 @@
+import { prop } from 'ramda'
 import { Predicate } from 'fts-utils'
 
 import {
@@ -24,14 +25,14 @@ describe('hasRequiredLength', () => {
 })
 
 describe('isValidPassword', () => {
-  test.only.each([['password'], ['pass!2T'], ['2235!@@']])(
+  test.each([['password'], ['pass!2T'], ['2235!@@']])(
     'should return false when password is not valid',
     password => {
       expect(isValidPassword(password)).toBe(false)
     }
   )
 
-  test.each([['--_P__-_1_-'], ['111$$$$s'], ['%%x%%!#7']])(
+  test.each([['_P___1__'], ['-sdf1asfds'], ['111$$$$s'], ['%%x%%!#7']])(
     'should return true when password is valid',
     password => {
       expect(isValidPassword(password)).toBe(true)
@@ -63,8 +64,8 @@ describe('validate', () => {
   }
 
   const predicates = {
-    folder: Predicate(hasRequiredLength(4)),
-    password: Predicate(isValidPassword)
+    folder: Predicate(hasRequiredLength(4)).contramap(prop('folder')),
+    password: Predicate(isValidPassword).contramap(prop('password'))
   }
 
   test('should return error object when fields are not valid', () => {
