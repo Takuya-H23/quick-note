@@ -26,11 +26,11 @@ export default function Index() {
           <h3 className="text-xl font-medium">How to use it?</h3>
           <p className="leading-7">
             <Link to="register">
-              <span className="underline">You need your account</span>
+              <span className="underline">You need your account. </span>
             </Link>
-            . If you have your account then you can start creating your quick
-            notes from{' '}
-            <Link to="/dashboard">
+            If you have your account then you can start creating your folders
+            and quick notes from{' '}
+            <Link to="/notes">
               <span className="underline">here</span>!
             </Link>
           </p>
