@@ -25,7 +25,7 @@ export default function Index() {
         <div className="flex flex-col gap-y-4">
           <h3 className="text-xl font-medium">How to use it?</h3>
           <p className="leading-7">
-            <Link to="login">
+            <Link to="register">
               <span className="underline">You need your account</span>
             </Link>
             . If you have your account then you can start creating your quick
@@ -46,6 +46,14 @@ export default function Index() {
           <p className="leading-7">
             At this moment, my answer is no. But I'm happy to develop a mobile
             app if there is a need 👍
+          </p>
+        </div>
+        <div className="flex flex-col gap-y-4">
+          <h3 className="text-xl font-medium">
+            Can I use this as a password manager?
+          </h3>
+          <p className="leading-7">
+            No. Pleas do not use this as your password manager.
           </p>
         </div>
       </section>
