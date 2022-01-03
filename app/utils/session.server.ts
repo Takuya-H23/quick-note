@@ -25,7 +25,7 @@ export const startUserSession = async (userId: string) => {
 
   session.set('userId', userId)
 
-  return redirect('/dashboard', {
+  return redirect('/notes', {
     headers: {
       'Set-Cookie': await storage.commitSession(session)
     }

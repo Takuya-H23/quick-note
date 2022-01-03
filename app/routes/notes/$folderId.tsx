@@ -10,7 +10,9 @@ import type { LoaderFunction } from 'remix'
 
 const noteRenderer = map((note: any) => (
   <li key={note.id}>
-    <NoteCard {...note} />
+    <Link to={`/notes/details/${note.id}`}>
+      <NoteCard {...note} />
+    </Link>
   </li>
 ))
 
