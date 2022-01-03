@@ -6,6 +6,7 @@ import {
   createNoteQuery,
   readFolderQuery,
   readFoldersQuery,
+  readNoteDetailQuery,
   readNotesUnderFolderQuery
 } from './queries'
 import { extractRows, extractHead, mapExtractRows } from '~/utils/functions'
@@ -32,6 +33,9 @@ export const getFolders = (userId: string) =>
 
 export const getNotesUnderFolder = (folderId: string) =>
   client.query(readNotesUnderFolderQuery, [folderId]).then(extractRows)
+
+export const getNoteDetail = (noteId: string) =>
+  client.query(readNoteDetailQuery, [noteId]).then(extractHead)
 
 export const getFolderWithNotes = (userId: string, folderId: string) =>
   Promise.all([
