@@ -24,14 +24,14 @@ describe('hasRequiredLength', () => {
 })
 
 describe('isValidPassword', () => {
-  test.each([['password'], ['pass!2T'], ['2235!@@']])(
+  test.only.each([['password'], ['pass!2T'], ['2235!@@']])(
     'should return false when password is not valid',
     password => {
       expect(isValidPassword(password)).toBe(false)
     }
   )
 
-  test.each([['password1@'], ['111$$$$s'], ['%%x%%!#7']])(
+  test.each([['--_P__-_1_-'], ['111$$$$s'], ['%%x%%!#7']])(
     'should return true when password is valid',
     password => {
       expect(isValidPassword(password)).toBe(true)
