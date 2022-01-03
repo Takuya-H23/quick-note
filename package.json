@@ -10,7 +10,8 @@
     "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
-    "migrate": "node ./scripts/migrate-postgres",
+    "migrate": "NODE_ENV=development node ./scripts/migrate-postgres",
+    "migrate:prod": "NODE_ENV=production node ./scripts/migrate-postgres",
     "test": "jest --coverage"
   },
   "dependencies": {

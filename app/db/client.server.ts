@@ -13,10 +13,10 @@ let client: ClientBase
 if (process.env.NODE_ENV === 'production') {
   client = new Client({
     password: process.env.POSTGRES_PASSWORD,
-    user: 'postgres',
-    host: 'localhost',
-    port: 6428,
-    database: 'quick_note_dev'
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST,
+    port: Number(process.env.POSTGRES_PORT),
+    database: process.env.POSTGRES_DATABASE
   })
 
   client.connect()
@@ -24,10 +24,10 @@ if (process.env.NODE_ENV === 'production') {
   if (!global.__db) {
     client = new Client({
       password: process.env.POSTGRES_PASSWORD,
-      user: 'postgres',
-      host: 'localhost',
-      port: 6428,
-      database: 'quick_note_dev'
+      user: process.env.POSTGRES_USER,
+      host: process.env.POSTGRES_HOST,
+      port: Number(process.env.POSTGRES_PORT),
+      database: process.env.POSTGRES_DATABASE
     })
     client.connect()
 
