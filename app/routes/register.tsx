@@ -16,7 +16,10 @@ export const action: ActionFunction = async ({
 }): Promise<Response | ActionData> => {
   const formData = await request.formData()
 
-  const fields = getFields(['name', 'email', 'password'], formData)
+  const fields = getFields(
+    ['name', 'email', 'password', 'passwordConfirmation'],
+    formData
+  )
 
   if (!areAllString(fields))
     return {
@@ -60,6 +63,7 @@ export default function Register() {
             id="name"
             defaultValue={fields?.name}
             errorMessage={fieldErrors?.name}
+            placeholder="Your Name"
           />
           <Input
             label="Email"
@@ -68,6 +72,7 @@ export default function Register() {
             type="email"
             name="email"
             id="email"
+            placeholder="your@email.com"
           />
           <Input
             label="Password"
@@ -76,6 +81,16 @@ export default function Register() {
             type="password"
             name="password"
             id="password"
+            placeholder="Your password"
+          />
+          <Input
+            label="Password Confirmation"
+            defaultValue={fields?.passwordConfirmation}
+            errorMessage={fieldErrors?.passwordConfirmation}
+            type="password"
+            name="passwordConfirmation"
+            id="passwordConfirmation"
+            placeholder="Same password above"
           />
           <div className="w-2/3 self-center">
             <Button type="submit">Register</Button>
