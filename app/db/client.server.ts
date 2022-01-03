@@ -12,11 +12,11 @@ let client: ClientBase
 
 if (process.env.NODE_ENV === 'production') {
   client = new Client({
-    password: process.env.POSTGRES_PASSWORD,
-    user: process.env.POSTGRES_USER,
-    host: process.env.POSTGRES_HOST,
-    port: Number(process.env.POSTGRES_PORT),
-    database: process.env.POSTGRES_DATABASE
+    password: process.env.POSTGRES_PASSWORD_PROD,
+    user: process.env.POSTGRES_USER_PROD,
+    host: process.env.POSTGRES_HOST_PROD,
+    port: Number(process.env.POSTGRES_PORT_PROD),
+    database: process.env.POSTGRES_DATABASE_PROD
   })
 
   client.connect()
