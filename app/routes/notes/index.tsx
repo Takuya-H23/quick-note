@@ -38,6 +38,7 @@ export default function NotesIndex() {
           </Link>
         </button>
       </div>
+      <p className="mt-4">Create folders to organize your quick notes.</p>
       <ul className="mt-6">{folderRenderer(d.folders)}</ul>
     </section>
   )

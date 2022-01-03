@@ -39,7 +39,7 @@ export default function Header({ isLoggedIn }: Props) {
         <CgMenu className="w-8 h-8" />
       </button>
       <div
-        className="p-6 overflow-y-scroll fixed top-0 bottom-0 right-0  bg-gray-600 w-1/2"
+        className="p-6 overflow-y-scroll fixed top-0 bottom-0 right-0  bg-gray-600 w-1/2 z-10"
         hidden={!isOpen}
       >
         <div
@@ -59,9 +59,11 @@ export default function Header({ isLoggedIn }: Props) {
                 <li onClick={handleClose}>
                   <Link to="/notes">Notes</Link>
                 </li>
+                {/*
                 <li>
                   <Link to="/dashboard">Dashboard</Link>
                 </li>
+                  */}
                 <li onClick={handleClose}>
                   <form method="post" action="/logout">
                     <button ref={last} type="submit">
