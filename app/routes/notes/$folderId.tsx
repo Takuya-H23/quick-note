@@ -1,8 +1,8 @@
-import { Link, useLoaderData } from 'remix'
+import { Link, useLoaderData, json } from 'remix'
 import { MdOutlineNoteAdd } from 'react-icons/md'
 import { map } from 'ramda'
 
-import { requiredUserId } from '~/utils/session.server'
+import { requiredUserId, getSessionFlashMessage } from '~/utils/session.server'
 import { getFolderWithNotes } from '~/db/notes/operations.server'
 import { NoteCard } from '~/components'
 
@@ -20,7 +20,20 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const userId = await requiredUserId(request)
   const { folderId } = params
 
-  return await getFolderWithNotes(userId, folderId as string)
+  const res = await getFolderWithNotes(userId, folderId as string)
+
+  const { message, removeSessionFlashMessage } = await getSessionFlashMessage(
+    request
+  )
+
+  return json(
+    { message, ...res },
+    {
+      headers: {
+        'Set-Cookie': await removeSessionFlashMessage()
+      }
+    }
+  )
 }
 
 export default function NoteCategoryDetail() {

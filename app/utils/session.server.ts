@@ -20,6 +20,42 @@ const storage = createCookieSessionStorage({
   }
 })
 
+export const sessionFlashStorage = createCookieSessionStorage({
+  cookie: {
+    name: 'QN_flash_session',
+    secrets: [sessionSecret],
+    secure: true,
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 60 * 24,
+    httpOnly: true
+  }
+})
+
+export const redirectWithSessionFlash = async (
+  redirectTo: string,
+  message: string
+) => {
+  const session = await sessionFlashStorage.getSession()
+  session.flash('flashMessage', message)
+
+  return redirect(redirectTo, {
+    headers: {
+      'Set-Cookie': await sessionFlashStorage.commitSession(session)
+    }
+  })
+}
+
+export const getSessionFlashMessage = async (request: Request) => {
+  const session = await sessionFlashStorage.getSession(
+    request.headers.get('Cookie')
+  )
+  return {
+    message: session.get('flashMessage') || null,
+    removeSessionFlashMessage: () => sessionFlashStorage.commitSession(session)
+  }
+}
+
 export const startUserSession = async (userId: string) => {
   const session = await storage.getSession()
 
