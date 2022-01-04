@@ -467,12 +467,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: 0px;
 }
 
-.z-negative {
-  z-index: -1;
-}
-
 .z-10 {
   z-index: 10;
+}
+
+.z-negative {
+  z-index: -1;
 }
 
 .mx-auto {

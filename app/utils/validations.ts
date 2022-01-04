@@ -59,8 +59,8 @@ export const validateRegisterForm = validate({
 
 export const validateLoginForm = validate({
   predicates: {
-    email: Predicate(isValidEmail),
-    password: Predicate(isValidPassword)
+    email: Predicate(isValidEmail).contramap(prop('email')),
+    password: Predicate(isValidPassword).contramap(prop('password'))
   },
   errors: {
     email: 'Email is not valid',

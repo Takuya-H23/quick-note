@@ -13,11 +13,22 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export default function NoteDetail() {
-  const { title, description, copy } = useLoaderData()
+  const { id, title, description, copy, folder_id: folderId } = useLoaderData()
 
   return (
     <div>
-      <h2 className="text-xl font-bold">{title}</h2>
+      <div>
+        <h2 className="text-xl font-bold">{title}</h2>
+        <form method="post" action={`/notes/details/${id}/delete`}>
+          <input
+            type="hidden"
+            name="redirectTo"
+            value={`/notes/${folderId}`}
+            id="redirectTo"
+          />
+          <button type="submit">Delete</button>
+        </form>
+      </div>
       {copy && <CopyText copy={copy} className="mt-4" />}
       <p className="mt-4">{description}</p>
     </div>
