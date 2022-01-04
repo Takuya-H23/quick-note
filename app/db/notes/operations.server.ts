@@ -1,4 +1,4 @@
-import { head } from 'ramda'
+import { head, prop } from 'ramda'
 
 import { client } from '../client.server'
 import {
@@ -7,7 +7,8 @@ import {
   readFolderQuery,
   readFoldersQuery,
   readNoteDetailQuery,
-  readNotesUnderFolderQuery
+  readNotesUnderFolderQuery,
+  deleteNoteQuery
 } from './queries'
 import { extractRows, extractHead, mapExtractRows } from '~/utils/functions'
 
@@ -44,3 +45,14 @@ export const getFolderWithNotes = (userId: string, folderId: string) =>
   ])
     .then(mapExtractRows)
     .then(([folderRows, notes]) => ({ folder: head(folderRows), notes }))
+
+export const deleteNote = ({
+  userId,
+  noteId
+}: {
+  userId: string
+  noteId: string
+}) =>
+  client
+    .query(deleteNoteQuery, ['180fd97a-1338-4527-a3c8-1d4f21e74452', noteId])
+    .then(x => prop('rowCount', x) === 1)
