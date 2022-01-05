@@ -27,6 +27,14 @@ export const updateFolderQuery = `
   UPDATE folders SET name = $1 WHERE folders.user_id = $2 AND folders.id = $3
 `
 
+export const updateNoteQuery = `
+  UPDATE notes 
+  SET title = $1,
+    description = $2,
+    copy = $3 
+  WHERE notes.user_id = $4 AND notes.id = $5
+`
+
 export const readNoteDetailQuery = `
   SELECT * FROM notes 
   WHERE notes.id = $1

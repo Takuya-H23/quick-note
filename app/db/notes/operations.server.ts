@@ -9,6 +9,7 @@ import {
   readNoteDetailQuery,
   readNotesUnderFolderQuery,
   updateFolderQuery,
+  updateNoteQuery,
   deleteFolderQuery,
   deleteNoteQuery
 } from './queries'
@@ -61,6 +62,25 @@ export const editFolder = ({
 }) =>
   client
     .query(updateFolderQuery, [fields.name, userId, folderId])
+    .then(x => prop('rowCount', x) === 1)
+
+export const editNote = ({
+  fields,
+  userId,
+  noteId
+}: {
+  fields: Fields
+  userId: string
+  noteId: string
+}) =>
+  client
+    .query(updateNoteQuery, [
+      fields.title,
+      fields.description,
+      fields.copy,
+      userId,
+      noteId
+    ])
     .then(x => prop('rowCount', x) === 1)
 
 export const deleteFolder = ({
