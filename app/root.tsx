@@ -8,14 +8,13 @@ import {
   useCatch,
   useLoaderData
 } from 'remix'
-import type { LinksFunction } from 'remix'
 
 import { getUserId } from '~/utils/session.server'
 import { Layout } from '~/components'
 
 import tailwindUrl from './tailwind.css'
 
-import type { LoaderFunction } from 'remix'
+import type { LinksFunction, LoaderFunction } from 'remix'
 
 export let links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: tailwindUrl }]
