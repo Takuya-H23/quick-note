@@ -1,3 +1,10 @@
+export const createFolderQuery = `
+  INSERT INTO folders(name, user_id) VALUES($1, $2)
+`
+
+export const createNoteQuery = `
+  INSERT INTO notes(title, description, copy, user_id, folder_id) VALUES($1, $2, $3, $4, $5)
+`
 export const readFolderQuery = `
   SELECT a.id, a.name,  COUNT(b.id) notes_count
   FROM folders a 
@@ -16,19 +23,14 @@ export const readNotesUnderFolderQuery = `
   WHERE n.user_id = $1 AND n.folder_id = $2
 `
 
+export const updateFolderQuery = `
+  UPDATE folders SET name = $1 WHERE folders.user_id = $2 AND folders.id = $3
+`
+
 export const readNoteDetailQuery = `
   SELECT * FROM notes 
   WHERE notes.id = $1
 `
-
-export const createFolderQuery = `
-  INSERT INTO folders(name, user_id) VALUES($1, $2)
-`
-
-export const createNoteQuery = `
-  INSERT INTO notes(title, description, copy, user_id, folder_id) VALUES($1, $2, $3, $4, $5)
-`
-
 export const deleteFolderQuery = `
   DELETE FROM folders WHERE folders.user_id = $1 AND folders.id = $2 
 `
