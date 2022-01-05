@@ -29,6 +29,10 @@ export const createNoteQuery = `
   INSERT INTO notes(title, description, copy, user_id, folder_id) VALUES($1, $2, $3, $4, $5)
 `
 
+export const deleteFolderQuery = `
+  DELETE FROM folders WHERE folders.user_id = $1 AND folders.id = $2 
+`
+
 export const deleteNoteQuery = `
   DELETE FROM notes WHERE notes.user_id = $1 AND notes.id = $2
 `
