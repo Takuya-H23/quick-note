@@ -8,6 +8,7 @@ import {
   readFoldersQuery,
   readNoteDetailQuery,
   readNotesUnderFolderQuery,
+  deleteFolderQuery,
   deleteNoteQuery
 } from './queries'
 import { extractRows, extractHead, mapExtractRows } from '~/utils/functions'
@@ -45,6 +46,17 @@ export const getFolderWithNotes = (userId: string, folderId: string) =>
   ])
     .then(mapExtractRows)
     .then(([folderRows, notes]) => ({ folder: head(folderRows), notes }))
+
+export const deleteFolder = ({
+  userId,
+  folderId
+}: {
+  userId: string
+  folderId: string
+}) =>
+  client
+    .query(deleteFolderQuery, [userId, folderId])
+    .then(x => prop('rowCount', x) === 1)
 
 export const deleteNote = ({
   userId,
