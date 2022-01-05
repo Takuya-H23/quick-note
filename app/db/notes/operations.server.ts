@@ -103,4 +103,5 @@ export const deleteNote = ({
 }) =>
   client
     .query(deleteNoteQuery, [userId, noteId])
+    .then(x => (console.log(x), x))
     .then(x => prop('rowCount', x) === 1)
