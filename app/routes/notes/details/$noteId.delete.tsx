@@ -17,7 +17,6 @@ export const action: ActionFunction = async ({ request, params }) => {
   const { noteId } = params
 
   if (!noteId || !to) return redirect('/notes')
-  console.log(userId, noteId)
 
   const isSuccess = await deleteNote({ userId, noteId })
   const redirectTo = to.concat(`?status=${isSuccess ? 'success' : 'fail'}`)
