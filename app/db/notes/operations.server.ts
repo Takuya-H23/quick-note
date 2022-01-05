@@ -54,5 +54,5 @@ export const deleteNote = ({
   noteId: string
 }) =>
   client
-    .query(deleteNoteQuery, ['180fd97a-1338-4527-a3c8-1d4f21e74452', noteId])
+    .query(deleteNoteQuery, [userId, noteId])
     .then(x => prop('rowCount', x) === 1)
