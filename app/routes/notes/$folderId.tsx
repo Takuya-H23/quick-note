@@ -4,7 +4,7 @@ import { map } from 'ramda'
 
 import { requiredUserId, getSessionFlashMessage } from '~/utils/session.server'
 import { getFolderWithNotes } from '~/db/notes/operations.server'
-import { NoteCard } from '~/components'
+import { NoteCard, SnackBar } from '~/components'
 
 import type { LoaderFunction } from 'remix'
 
@@ -19,6 +19,8 @@ const noteRenderer = map((note: any) => (
 export const loader: LoaderFunction = async ({ request, params }) => {
   const userId = await requiredUserId(request)
   const { folderId } = params
+  const url = new URL(request.url)
+  const status = url.searchParams.get('status')
 
   const res = await getFolderWithNotes(userId, folderId as string)
 
@@ -27,7 +29,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   )
 
   return json(
-    { message, ...res },
+    { message, ...res, variant: status === 'success' ? 'info' : 'error' },
     {
       headers: {
         'Set-Cookie': await removeSessionFlashMessage()
@@ -36,11 +38,12 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   )
 }
 
-export default function NoteCategoryDetail() {
-  const { folder, notes } = useLoaderData()
+export default function NoteFolderDetail() {
+  const { folder, notes, message, variant } = useLoaderData()
 
   return (
     <div>
+      <SnackBar message={message} variant={variant} />
       <div className="flex justify-between items-center">
         <h2 className="font-bold text-xl">
           {folder.name} ({folder.notes_count})
