@@ -1,6 +1,6 @@
-import { useState, redirect } from 'react'
-import { PencilAltIcon } from '@heroicons/react/outline'
-import { Form, Link, useLoaderData, json } from 'remix'
+import { useState } from 'react'
+import { PencilAltIcon, DotsVerticalIcon } from '@heroicons/react/outline'
+import { Link, useLoaderData, json } from 'remix'
 import { Dialog, Menu } from '@headlessui/react'
 import { MdOutlineNoteAdd } from 'react-icons/md'
 import { AiOutlineDelete } from 'react-icons/ai'
@@ -81,8 +81,10 @@ export default function NoteFolderDetail() {
           {folder.name} ({folder.notes_count})
         </h2>
         <Menu as="div" className="relative">
-          <Menu.Button>Options</Menu.Button>
-          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-600 rounded-sm">
+          <Menu.Button className="flex items-center">
+            <DotsVerticalIcon className="w-6 h-6" />
+          </Menu.Button>
+          <Menu.Items className="z-10 absolute right-0 w-56 mt-2 origin-top-right bg-gray-600 rounded-sm shadow-lg">
             <div className="p-2 flex flex-col gap-y-4">
               <Menu.Item>
                 {() => (
