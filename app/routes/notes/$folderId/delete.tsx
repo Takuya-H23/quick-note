@@ -17,8 +17,10 @@ export const action: ActionFunction = async ({ request, params }) => {
 
   const isSuccess = await deleteFolder({ userId, folderId })
 
+  const status = isSuccess ? 'success' : 'fail'
+
   return redirectWithSessionFlash(
-    '/notes',
+    `/notes?status=${status}`,
     isSuccess
       ? 'Successfully deleted the folder'
       : 'There was a problem deleting the folder'

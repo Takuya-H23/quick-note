@@ -1,11 +1,12 @@
-import { Link, useLoaderData } from 'remix'
+import { Link, useLoaderData, json } from 'remix'
 import { map } from 'ramda'
 import { BiMessageSquareAdd, BiFolder } from 'react-icons/bi'
 
-import { requiredUserId } from '~/utils/session.server'
+import { getSessionFlashMessage, requiredUserId } from '~/utils/session.server'
 import { getFolders } from '~/db/notes/operations.server'
 
 import type { LoaderFunction } from 'remix'
+import { SnackBar } from '~/components'
 
 const folderRenderer = map(({ id: folderId, name }) => (
   <li key={folderId}>
@@ -22,14 +23,29 @@ export const loader: LoaderFunction = async ({ request }) => {
   const userId = await requiredUserId(request)
   const folders = await getFolders(userId)
 
-  return { folders }
+  const url = new URL(request.url)
+  const status = url.searchParams.get('status')
+
+  const { message, removeSessionFlashMessage } = await getSessionFlashMessage(
+    request
+  )
+
+  return json(
+    { folders, message, variant: status === 'success' ? 'info' : 'error' },
+    {
+      headers: {
+        'Set-Cookie': await removeSessionFlashMessage()
+      }
+    }
+  )
 }
 
 export default function NotesIndex() {
-  const d = useLoaderData()
+  const { folders, message, variant } = useLoaderData()
 
   return (
     <section>
+      <SnackBar message={message} variant={variant} />
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-medium">Folders</h2>
         <button>
@@ -39,7 +55,7 @@ export default function NotesIndex() {
         </button>
       </div>
       <p className="mt-4">Create folders to organize your quick notes.</p>
-      <ul className="mt-6">{folderRenderer(d.folders)}</ul>
+      <ul className="mt-6">{folderRenderer(folders)}</ul>
     </section>
   )
 }
