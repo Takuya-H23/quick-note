@@ -1,5 +1,3 @@
-import { redirect } from 'remix'
-
 import {
   requiredUserId,
   redirectWithSessionFlash

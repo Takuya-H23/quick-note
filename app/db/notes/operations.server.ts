@@ -8,10 +8,13 @@ import {
   readFoldersQuery,
   readNoteDetailQuery,
   readNotesUnderFolderQuery,
+  updateFolderQuery,
   deleteFolderQuery,
   deleteNoteQuery
 } from './queries'
 import { extractRows, extractHead, mapExtractRows } from '~/utils/functions'
+
+import type { Fields } from '~/types'
 
 export const createFolder = ({ name, userId }: Record<string, string>) =>
   client.query(createFolderQuery, [name, userId]).then(extractRows)
@@ -46,6 +49,19 @@ export const getFolderWithNotes = (userId: string, folderId: string) =>
   ])
     .then(mapExtractRows)
     .then(([folderRows, notes]) => ({ folder: head(folderRows), notes }))
+
+export const editFolder = ({
+  fields,
+  userId,
+  folderId
+}: {
+  fields: Fields
+  userId: string
+  folderId: string
+}) =>
+  client
+    .query(updateFolderQuery, [fields.name, userId, folderId])
+    .then(x => prop('rowCount', x) === 1)
 
 export const deleteFolder = ({
   userId,

@@ -1,4 +1,5 @@
 import { useState, redirect } from 'react'
+import { PencilAltIcon } from '@heroicons/react/outline'
 import { Form, Link, useLoaderData, json } from 'remix'
 import { Dialog, Menu } from '@headlessui/react'
 import { MdOutlineNoteAdd } from 'react-icons/md'
@@ -85,8 +86,15 @@ export default function NoteFolderDetail() {
             <div className="p-2 flex flex-col gap-y-4">
               <Menu.Item>
                 {() => (
-                  <Link to="new" className="flex gap-x-2">
-                    <MdOutlineNoteAdd className="h-6 w-6" /> <span>New</span>
+                  <Link to="new" className="flex gap-x-2 items-center">
+                    <MdOutlineNoteAdd className="h-5 w-5" /> <span>New</span>
+                  </Link>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {() => (
+                  <Link to="edit" className="flex gap-x-2 items-center">
+                    <PencilAltIcon className="h-5 w-5" /> <span>Edit</span>
                   </Link>
                 )}
               </Menu.Item>
@@ -94,10 +102,10 @@ export default function NoteFolderDetail() {
                 {() => (
                   <button
                     type="button"
-                    className="flex gap-x-2"
+                    className="flex gap-x-2 items-center"
                     onClick={handleOpen}
                   >
-                    <AiOutlineDelete className="w-6 h-6" />
+                    <AiOutlineDelete className="w-5 h-5" />
                     <span>Delete</span>
                   </button>
                 )}
