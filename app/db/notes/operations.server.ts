@@ -11,7 +11,8 @@ import {
   updateFolderQuery,
   updateNoteQuery,
   deleteFolderQuery,
-  deleteNoteQuery
+  deleteNoteQuery,
+  readAllNotesQuery
 } from './queries'
 import { extractRows, extractHead, mapExtractRows } from '~/utils/functions'
 
@@ -36,6 +37,12 @@ export const getFolder = (userId: string, folderId: string) =>
 
 export const getFolders = (userId: string) =>
   client.query(readFoldersQuery, [userId]).then(extractRows)
+
+export const getAllNotes = (userId: string) =>
+  client.query(readAllNotesQuery, [userId]).then(res => ({
+    folder: { id: 'all', name: 'All Notes', notes_count: res.rowCount },
+    notes: extractRows(res)
+  }))
 
 export const getNotesUnderFolder = (folderId: string) =>
   client.query(readNotesUnderFolderQuery, [folderId]).then(extractRows)

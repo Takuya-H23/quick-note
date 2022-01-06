@@ -23,6 +23,11 @@ export const readNotesUnderFolderQuery = `
   WHERE n.user_id = $1 AND n.folder_id = $2
 `
 
+export const readAllNotesQuery = `
+  SELECT n.id, n.title, n.copy FROM notes AS n
+  WHERE n.user_id = $1
+`
+
 export const updateFolderQuery = `
   UPDATE folders SET name = $1 WHERE folders.user_id = $2 AND folders.id = $3
 `
