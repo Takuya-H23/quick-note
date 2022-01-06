@@ -52,7 +52,7 @@ export const action: ActionFunction = async ({
   const status = isSuccess ? 'success' : 'fail'
 
   return redirectWithSessionFlash(
-    `/notes/${folderId}?status=${status}`,
+    `/folders/${folderId}?status=${status}`,
     isSuccess
       ? 'Successfully edited the folder'
       : 'There was a problem editing the folder'

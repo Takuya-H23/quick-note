@@ -1,6 +1,6 @@
 import { Link, useLoaderData, json } from 'remix'
+import { FolderAddIcon, FolderIcon } from '@heroicons/react/outline'
 import { map } from 'ramda'
-import { BiMessageSquareAdd, BiFolder } from 'react-icons/bi'
 
 import { getSessionFlashMessage, requiredUserId } from '~/utils/session.server'
 import { getFolders } from '~/db/notes/operations.server'
@@ -12,7 +12,7 @@ const folderRenderer = map(({ id: folderId, name }) => (
   <li key={folderId}>
     <Link to={`${folderId}`}>
       <div className="flex items-center gap-x-2">
-        <BiFolder />
+        <FolderIcon className="w-6 h-6" />
         <span>{name}</span>
       </div>
     </Link>
@@ -48,18 +48,17 @@ export default function NotesIndex() {
       <SnackBar message={message} variant={variant} />
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-medium">Folders</h2>
-        <button>
-          <Link to="folder-new">
-            <BiMessageSquareAdd className="h-8 w-8" />
-          </Link>
-        </button>
+        <Link to="new" className="flex gap-x-2 items-center">
+          <FolderAddIcon className="h-6 w-6" />
+          Add Folder
+        </Link>
       </div>
       <p className="mt-4">Create folders to organize your quick notes.</p>
       <ul className="mt-6">
         <li key="all">
           <Link to="all">
             <div className="flex items-center gap-x-2">
-              <BiFolder />
+              <FolderIcon className="w-6 h-6" />
               <span>All Notes</span>
             </div>
           </Link>
