@@ -40,8 +40,12 @@ export const action: ActionFunction = async ({
 
   if (!folderId) return redirect('/')
 
-  createNote({ ...fields, userId, folderId })
-  return redirect(`/notes/${folderId}`)
+  createNote({
+    ...fields,
+    userId,
+    folderId: folderId === 'all' ? null : folderId
+  })
+  return redirect(`/folders/${folderId}`)
 }
 
 export default function NoteNew() {

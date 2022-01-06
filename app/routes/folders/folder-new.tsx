@@ -38,7 +38,7 @@ export const action: ActionFunction = async ({
 
   await createFolder({ ...fields, userId })
 
-  return redirect('/notes')
+  return redirect('/folders')
 }
 
 export default function FolderNew() {

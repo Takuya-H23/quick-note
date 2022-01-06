@@ -90,12 +90,10 @@ export default function NoteDetail() {
                   </Dialog.Title>
                   <div className="flex gap-x-4 p-6 overflow-hidden justify-center">
                     <button onClick={handleClose}>Cancel</button>
-                    <form method="post" action={`/notes/details/${id}/delete`}>
-                      <input
-                        type="hidden"
-                        name="redirectTo"
-                        value={`/notes/${folderId}`}
-                      />
+                    <form
+                      method="post"
+                      action={`/folders/${folderId}/${id}/delete`}
+                    >
                       <button type="submit" className="flex gap-x-2">
                         Yes
                       </button>

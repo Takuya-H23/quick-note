@@ -27,7 +27,7 @@ export const createNote = ({
   copy,
   userId,
   folderId
-}: Record<string, string>) =>
+}: Record<string, string | null>) =>
   client
     .query(createNoteQuery, [title, description, copy, userId, folderId])
     .then(extractRows)
