@@ -4,22 +4,21 @@ import {
   requiredUserId,
   redirectWithSessionFlash
 } from '~/utils/session.server'
-import { getFields } from '~/utils/functions'
 import { deleteNote } from '~/db/notes/operations.server'
 
 import type { ActionFunction } from 'remix'
 
 export const action: ActionFunction = async ({ request, params }) => {
   const userId = await requiredUserId(request)
-  const formData = await request.formData()
-  const { redirectTo: to } = getFields(['redirectTo'], formData)
 
-  const { noteId } = params
+  const { noteId, folderId } = params
 
-  if (!noteId || !to) return redirect('/notes')
+  if (!noteId || !folderId) return redirect('/notes')
 
   const isSuccess = await deleteNote({ userId, noteId })
-  const redirectTo = to.concat(`?status=${isSuccess ? 'success' : 'fail'}`)
+  const redirectTo = `/folders/${folderId}?status=${
+    isSuccess ? 'success' : 'fail'
+  }`
 
   return redirectWithSessionFlash(
     redirectTo,

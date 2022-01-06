@@ -14,7 +14,7 @@ import type { LoaderFunction } from 'remix'
 
 const noteRenderer = map((note: any) => (
   <li key={note.id}>
-    <Link to={`/notes/details/${note.id}`}>
+    <Link to={`${note.id}`}>
       <NoteCard {...note} />
     </Link>
   </li>
@@ -69,7 +69,7 @@ export default function NoteFolderDetail() {
             </Dialog.Description>
             <div className="flex gap-x-4 p-6 overflow-hidden justify-center">
               <button onClick={handleClose}>Cancel</button>
-              <form method="post" action={`/notes/${folder.id}/delete`}>
+              <form method="post" action={`/folders/${folder.id}/delete`}>
                 <button type="submit" className="flex gap-x-2">
                   Yes
                 </button>
