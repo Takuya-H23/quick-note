@@ -37,16 +37,10 @@ export default function NoteDetail() {
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
-  const {
-    id,
-    title,
-    description,
-    copy,
-    message,
-    variant,
-    folder_id: folderId
-  } = useLoaderData()
+  const { id, title, description, copy, message, variant, folder_id } =
+    useLoaderData()
 
+  const folderId = folder_id || 'all'
   return (
     <div>
       <Transition appear show={isOpen} as={Fragment}>
@@ -131,7 +125,8 @@ export default function NoteDetail() {
                         active ? 'bg-violet-500 ' : ''
                       } group flex rounded-md items-center w-full px-2 py-2 text-sm flex gap-x-2 items-center`}
                     >
-                      <PencilAltIcon className="h-5 w-5" /> <span>Edit</span>
+                      <PencilAltIcon className="h-5 w-5" />{' '}
+                      <span>Edit Note</span>
                     </Link>
                   )}
                 </Menu.Item>
@@ -145,7 +140,7 @@ export default function NoteDetail() {
                       onClick={handleOpen}
                     >
                       <AiOutlineDelete className="w-5 h-5" />
-                      <span>Delete</span>
+                      <span>Delete Note</span>
                     </button>
                   )}
                 </Menu.Item>

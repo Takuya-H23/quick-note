@@ -30,7 +30,7 @@ export const action: ActionFunction = async ({
   const userId = await requiredUserId(request)
   const formData = await request.formData()
   const fields = getFields(['title', 'description', 'copy'], formData)
-  const { noteId = '' } = params
+  const { noteId = '', folderId } = params
 
   if (!areAllString(fields))
     return {
@@ -50,7 +50,7 @@ export const action: ActionFunction = async ({
   const status = isSuccess ? 'success' : 'fail'
 
   return redirectWithSessionFlash(
-    `/notes/details/${noteId}?status=${status}`,
+    `/folders/${folderId}/${noteId}?status=${status}`,
     isSuccess
       ? 'Successfully edited the note'
       : 'There was a problem editing the note'
