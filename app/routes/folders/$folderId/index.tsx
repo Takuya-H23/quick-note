@@ -7,7 +7,7 @@ import { AiOutlineDelete } from 'react-icons/ai'
 import { map } from 'ramda'
 
 import { requiredUserId, getSessionFlashMessage } from '~/utils/session.server'
-import { getFolderWithNotes } from '~/db/notes/operations.server'
+import { getAllNotes, getFolderWithNotes } from '~/db/notes/operations.server'
 import { NoteCard, SnackBar } from '~/components'
 
 import type { LoaderFunction } from 'remix'
@@ -26,7 +26,10 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const url = new URL(request.url)
   const status = url.searchParams.get('status')
 
-  const res = await getFolderWithNotes(userId, folderId as string)
+  const res =
+    folderId === 'all'
+      ? await getAllNotes(userId)
+      : await getFolderWithNotes(userId, folderId as string)
 
   const { message, removeSessionFlashMessage } = await getSessionFlashMessage(
     request

@@ -55,7 +55,17 @@ export default function NotesIndex() {
         </button>
       </div>
       <p className="mt-4">Create folders to organize your quick notes.</p>
-      <ul className="mt-6">{folderRenderer(folders)}</ul>
+      <ul className="mt-6">
+        <li key="all">
+          <Link to="all">
+            <div className="flex items-center gap-x-2">
+              <BiFolder />
+              <span>All Notes</span>
+            </div>
+          </Link>
+        </li>
+        {folderRenderer(folders)}
+      </ul>
     </section>
   )
 }

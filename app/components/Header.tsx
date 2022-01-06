@@ -57,7 +57,7 @@ export default function Header({ isLoggedIn }: Props) {
             {isLoggedIn ? (
               <>
                 <li onClick={handleClose}>
-                  <Link to="/notes">Notes</Link>
+                  <Link to="/folders">Folders</Link>
                 </li>
                 {/*
                 <li>
