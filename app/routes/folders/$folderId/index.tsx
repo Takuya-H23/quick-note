@@ -83,7 +83,7 @@ export default function NoteFolderDetail() {
         </Dialog>
       )}
       <div className="flex justify-between items-center">
-        <h2 className="font-bold text-xl">
+        <h2 className="font-bold text-xl lg:text-2xl">
           {folder.name} ({folder.notes_count})
         </h2>
         <Link to="new" className="flex gap-x-2 items-center ml-auto mr-2">
@@ -121,7 +121,9 @@ export default function NoteFolderDetail() {
           </Menu>
         )}
       </div>
-      <ul className="flex flex-col gap-y-4 mt-6">{noteRenderer(notes)}</ul>
+      <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 items-stretch">
+        {noteRenderer(notes)}
+      </ul>
     </div>
   )
 }

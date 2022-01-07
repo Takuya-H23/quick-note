@@ -9,9 +9,9 @@ export default function NoteCard({
   copy: string
 }) {
   return (
-    <div className="flex flex-col gap-y-2 border border-gray-50 p-4 rounded-sm">
+    <div className="flex flex-col gap-y-2  p-4 rounded-md bg-gray-800 ring ring-gray-500 h-full">
       <h3 className="font-medium text-lg">{title}</h3>
-      <CopyText copy={copy} />
+      {copy && <CopyText copy={copy} />}
     </div>
   )
 }

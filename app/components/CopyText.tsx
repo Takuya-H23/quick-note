@@ -35,7 +35,7 @@ export default function CopyText({ copy, className }: Props) {
   return (
     <Popover className={className}>
       <div className="flex justify-between items-center">
-        <span>{copy}</span>
+        <span className="truncate">{copy}</span>
         <div className="relative">
           <button type="button" onClick={onClick}>
             <BiClipboard className="w-6 h-6" />
