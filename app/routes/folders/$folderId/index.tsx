@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { PencilAltIcon, DotsVerticalIcon } from '@heroicons/react/outline'
 import { Link, useLoaderData, json } from 'remix'
 import { Dialog, Menu } from '@headlessui/react'
-import { MdOutlineNoteAdd } from 'react-icons/md'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { map } from 'ramda'
 
@@ -83,11 +82,12 @@ export default function NoteFolderDetail() {
         </Dialog>
       )}
       <div className="flex justify-between items-center">
-        <h2 className="font-bold text-xl lg:text-2xl">
+        <h2 className="font-bold text-xl lg:text-3xl">
           {folder.name} ({folder.notes_count})
         </h2>
         <Link to="new" className="flex gap-x-2 items-center ml-auto mr-2">
-          <MdOutlineNoteAdd className="h-5 w-5" /> <span>Add Note</span>
+          <PencilAltIcon className="h-6 w-6" />{' '}
+          <span className="lg:text-lg">Add Note</span>
         </Link>
         {!isAll && (
           <Menu as="div" className="relative">
