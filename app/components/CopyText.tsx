@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Popover } from '@headlessui/react'
-import { BiClipboard } from 'react-icons/bi'
+import { ClipboardIcon } from '@heroicons/react/outline'
 
 type Props = {
   copy: string
@@ -38,7 +38,7 @@ export default function CopyText({ copy, className }: Props) {
         <span className="truncate">{copy}</span>
         <div className="relative">
           <button type="button" onClick={onClick}>
-            <BiClipboard className="w-6 h-6" />
+            <ClipboardIcon className="w-6 h-6" />
           </button>
           {isOpen && (
             <Popover.Panel
