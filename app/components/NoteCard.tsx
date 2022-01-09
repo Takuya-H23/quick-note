@@ -4,7 +4,6 @@ export default function NoteCard({
   title,
   copy
 }: {
-  id: string
   title: string
   copy: string
 }) {

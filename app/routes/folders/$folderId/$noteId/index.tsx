@@ -5,7 +5,7 @@ import { PencilAltIcon, DotsVerticalIcon } from '@heroicons/react/outline'
 import { AiOutlineDelete } from 'react-icons/ai'
 
 import { requiredUserId, getSessionFlashMessage } from '~/utils/session.server'
-import { CopyText, SnackBar } from '~/components'
+import { CopyText, SnackBar, NoteCard } from '~/components'
 import { getNoteDetail } from '~/db/notes/operations.server'
 import type { LoaderFunction } from 'remix'
 
@@ -100,57 +100,64 @@ export default function NoteDetail() {
         </Dialog>
       </Transition>
       <SnackBar message={message} variant={variant} />
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">{title}</h2>
-        <Menu as="div" className="relative inline-block text-left">
-          <Menu.Button className="flex items-center">
-            <DotsVerticalIcon className="w-6 h-6" />
-          </Menu.Button>
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="z-10 absolute  right-0 w-56 mt-2 origin-top-right bg-gray-700 rounded-sm shadow-lg divide-y divide-gray-100 ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <div className="p-2 flex flex-col gap-y-4 text-gray-50">
-                <Menu.Item>
-                  {({ active }) => (
-                    <Link
-                      to="edit"
-                      className={`${
-                        active ? 'bg-violet-500 ' : ''
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm flex gap-x-2 items-center`}
-                    >
-                      <PencilAltIcon className="h-5 w-5" />{' '}
-                      <span>Edit Note</span>
-                    </Link>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      type="button"
-                      className={`${
-                        active ? 'bg-violet-500 ' : ''
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm flex gap-x-2 items-center`}
-                      onClick={handleOpen}
-                    >
-                      <AiOutlineDelete className="w-5 h-5" />
-                      <span>Delete Note</span>
-                    </button>
-                  )}
-                </Menu.Item>
-              </div>
-            </Menu.Items>
-          </Transition>
-        </Menu>
+      <div className="flex flex-col gap-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold lg:text-2xl">{title}</h2>
+          <Menu as="div" className="relative inline-block text-left">
+            <Menu.Button className="flex items-center">
+              <DotsVerticalIcon className="w-6 h-6" />
+            </Menu.Button>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="z-10 absolute  right-0 w-56 mt-2 origin-top-right bg-gray-700 rounded-sm shadow-lg divide-y divide-gray-100 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="p-2 flex flex-col gap-y-4 text-gray-50">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="edit"
+                        className={`${
+                          active ? 'bg-violet-500 ' : ''
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm flex gap-x-2 items-center`}
+                      >
+                        <PencilAltIcon className="h-5 w-5" />{' '}
+                        <span>Edit Note</span>
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        type="button"
+                        className={`${
+                          active ? 'bg-violet-500 ' : ''
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm flex gap-x-2 items-center`}
+                        onClick={handleOpen}
+                      >
+                        <AiOutlineDelete className="w-5 h-5" />
+                        <span>Delete Note</span>
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        </div>
+        {copy && (
+          <CopyText
+            copy={copy}
+            className="p-4 rounded-md bg-gray-800 ring ring-gray-500 h-full"
+          />
+        )}
+        <p className="mt-4">{description}</p>
       </div>
-      {copy && <CopyText copy={copy} className="mt-4" />}
-      <p className="mt-4">{description}</p>
     </div>
   )
 }
