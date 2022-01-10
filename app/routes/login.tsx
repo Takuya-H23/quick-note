@@ -7,7 +7,7 @@ import { doPasswordsMatch } from '~/utils/bcrypt.server'
 import { startUserSession } from '~/utils/session.server'
 import { validateLoginForm } from '~/utils/validations'
 import { getFields, areAllString } from '~/utils/functions'
-import { Fieldset, Input, Button } from '~/components'
+import { ErrorLayout, Fieldset, Input, Button } from '~/components'
 
 const Either = {
   Left,
@@ -84,4 +84,8 @@ export default function Login() {
       </Fieldset>
     </form>
   )
+}
+
+export function ErrorBoundary() {
+  return <ErrorLayout />
 }

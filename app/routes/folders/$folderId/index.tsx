@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { PencilAltIcon, DotsVerticalIcon } from '@heroicons/react/outline'
+
 import { Link, useLoaderData, json } from 'remix'
 import { Dialog, Menu } from '@headlessui/react'
 import { AiOutlineDelete } from 'react-icons/ai'
@@ -7,7 +8,7 @@ import { map } from 'ramda'
 
 import { requiredUserId, getSessionFlashMessage } from '~/utils/session.server'
 import { getAllNotes, getFolderWithNotes } from '~/db/notes/operations.server'
-import { NoteCard, SnackBar } from '~/components'
+import { BackLink, ErrorLayout, NoteCard, SnackBar } from '~/components'
 
 import type { LoaderFunction } from 'remix'
 
@@ -53,6 +54,7 @@ export default function NoteFolderDetail() {
 
   return (
     <div>
+      <BackLink to="/folders" label="Folders" />
       <SnackBar message={message} variant={variant} />
       {!isAll && (
         <Dialog
@@ -126,4 +128,8 @@ export default function NoteFolderDetail() {
       </ul>
     </div>
   )
+}
+
+export function ErrorBoundary() {
+  return <ErrorLayout />
 }

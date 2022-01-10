@@ -44,10 +44,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
           <h1>There was an error</h1>
           <p>{error.message}</p>
           <hr />
-          <p>
-            Hey, developer, you should replace this with what you want your
-            users to see.
-          </p>
+          <p>Sorry, there was a problem. Please retry it later.</p>
         </div>
       </Layout>
     </Document>
