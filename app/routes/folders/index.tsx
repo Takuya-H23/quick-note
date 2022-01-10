@@ -40,7 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   )
 }
 
-export default function NotesIndex() {
+export default function FoldersIndex() {
   const { folders, message, variant } = useLoaderData()
 
   return (

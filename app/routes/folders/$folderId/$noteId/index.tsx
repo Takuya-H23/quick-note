@@ -5,7 +5,7 @@ import { PencilAltIcon, DotsVerticalIcon } from '@heroicons/react/outline'
 import { AiOutlineDelete } from 'react-icons/ai'
 
 import { requiredUserId, getSessionFlashMessage } from '~/utils/session.server'
-import { CopyText, SnackBar, NoteCard } from '~/components'
+import { CopyText, SnackBar, BackLink } from '~/components'
 import { getNoteDetail } from '~/db/notes/operations.server'
 import type { LoaderFunction } from 'remix'
 
@@ -43,6 +43,7 @@ export default function NoteDetail() {
   const folderId = folder_id || 'all'
   return (
     <div>
+      <BackLink to={`/folders/${folderId}`} label="Notes" />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"

@@ -10,7 +10,7 @@ import {
 
 import { getFolder, editFolder } from '~/db/notes/operations.server'
 import { validateFolderForm } from '~/utils/validations'
-import { Fieldset, Input, Button } from '~/components'
+import { ErrorLayout, Fieldset, Input, Button } from '~/components'
 
 import type { ActionFunction, LoaderFunction } from 'remix'
 import type { ActionData } from '~/types'
@@ -84,4 +84,8 @@ export default function NoteNew() {
       </Fieldset>
     </form>
   )
+}
+
+export function ErrorBoundary() {
+  return <ErrorLayout />
 }

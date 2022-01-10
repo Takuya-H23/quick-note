@@ -6,7 +6,7 @@ import { hashPassword } from '~/utils/bcrypt.server'
 import { startUserSession } from '~/utils/session.server'
 import { validateRegisterForm } from '~/utils/validations'
 import { getFields, areAllString } from '~/utils/functions'
-import { Fieldset, Input, Button } from '~/components'
+import { ErrorLayout, Fieldset, Input, Button } from '~/components'
 
 import type { ActionFunction } from 'remix'
 import { ActionData } from '~/types'
@@ -100,4 +100,8 @@ export default function Register() {
       </Fieldset>
     </form>
   )
+}
+
+export function ErrorBoundary() {
+  return <ErrorLayout />
 }
