@@ -39,8 +39,10 @@ export default function Account() {
   return (
     <div>
       <SnackBar message={message} variant="error" />
-      <h2 className="text-lg font-medium">{user.name}</h2>
-      <Button onClick={handleOpen}>Delete Account</Button>
+      <h2 className="text-xl font-medium">{user.name}</h2>
+      <div className="mt-8 w-1/2 mx-auto">
+        <Button onClick={handleOpen}>Delete Account</Button>
+      </div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"

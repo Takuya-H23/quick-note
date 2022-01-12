@@ -1,5 +1,5 @@
-import { json } from 'remix'
-import type { ActionFunction } from 'remix'
+import { redirect } from 'remix'
+import type { ActionFunction, LoaderFunction } from 'remix'
 
 import {
   requiredUserId,
@@ -21,22 +21,12 @@ export const action: ActionFunction = async ({ request }) => {
     )
   } else {
     const session = await getUserSession(request)
-    return json(
-      {},
-      {
-        headers: {
-          'Set-Cookie': await userSessionStorage.destroySession(session)
-        }
+    return redirect('/register', {
+      headers: {
+        'Set-Cookie': await userSessionStorage.destroySession(session)
       }
-    )
+    })
   }
 }
 
-export default function DeleteUser() {
-  return (
-    <div>
-      <p>Thanks for using Quick Note. All of your data has been deleted.</p>
-      <h2>I'm sorry to see you go...</h2>
-    </div>
-  )
-}
+export const loader: LoaderFunction = () => redirect('/')
