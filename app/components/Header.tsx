@@ -59,11 +59,9 @@ export default function Header({ isLoggedIn }: Props) {
                 <li onClick={handleClose}>
                   <Link to="/folders">Folders</Link>
                 </li>
-                {/*
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/account">Account</Link>
                 </li>
-                  */}
                 <li onClick={handleClose}>
                   <form method="post" action="/logout">
                     <button ref={last} type="submit">
