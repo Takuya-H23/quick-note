@@ -8,7 +8,7 @@ const sessionSecret = process.env.SESSION_SECRET
 
 if (!sessionSecret) throw new Error('Session Secret is missing')
 
-const storage = createCookieSessionStorage({
+export const userSessionStorage = createCookieSessionStorage({
   cookie: {
     name: 'QN_session',
     secrets: [sessionSecret],
@@ -57,19 +57,19 @@ export const getSessionFlashMessage = async (request: Request) => {
 }
 
 export const startUserSession = async (userId: string) => {
-  const session = await storage.getSession()
+  const session = await userSessionStorage.getSession()
 
   session.set('userId', userId)
 
   return redirect('/folders', {
     headers: {
-      'Set-Cookie': await storage.commitSession(session)
+      'Set-Cookie': await userSessionStorage.commitSession(session)
     }
   })
 }
 
 export const getUserSession = (request: Request) =>
-  storage.getSession(request.headers.get('Cookie'))
+  userSessionStorage.getSession(request.headers.get('Cookie'))
 
 export const getUserId = async (request: Request) => {
   const session = await getUserSession(request)
@@ -89,12 +89,15 @@ export const requiredUserId = async (request: Request) => {
   return userId
 }
 
-export const endUserSession = async (request: Request) => {
+export const endUserSession = async (
+  request: Request,
+  redirectTo: string = '/login'
+) => {
   const session = await getUserSession(request)
 
-  return redirect('/login', {
+  return redirect(redirectTo, {
     headers: {
-      'Set-Cookie': await storage.destroySession(session)
+      'Set-Cookie': await userSessionStorage.destroySession(session)
     }
   })
 }

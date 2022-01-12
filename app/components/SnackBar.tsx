@@ -41,7 +41,7 @@ export default function SnackBar({ message, variant = 'info' }: Props) {
 
   return (
     <div
-      className={`absolute top-6 right-6 md:top-8 md:right-8 bg-green-500 px-4 py-2 rounded-sm flex gap-x-2 items-center ${bg[variant]}`}
+      className={`absolute top-6 right-6 md:top-8 md:right-8 px-4 py-2 rounded-sm flex gap-x-2 items-center ${bg[variant]}`}
     >
       {icons[variant]}
       <p>{message}</p>

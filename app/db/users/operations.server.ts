@@ -1,9 +1,12 @@
+import { prop } from 'ramda'
+
 import { client } from '../client.server'
 import {
   countEmailQuery,
   createUserQuery,
   getUserByEmailQuery,
-  getUserByIdQuery
+  getUserByIdQuery,
+  deleteUserQuery
 } from './queries'
 import { extractHead } from '~/utils/functions'
 
@@ -28,3 +31,6 @@ export const createUser = ({
   passwordHash
 }: CreateUserPayload): Promise<{ id: string }> =>
   client.query(createUserQuery, [name, email, passwordHash]).then(extractHead)
+
+export const deleteUser = (id: string) =>
+  client.query(deleteUserQuery, [id]).then(x => prop('rowCount', x) === 1)

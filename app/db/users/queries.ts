@@ -6,3 +6,5 @@ export const getUserByIdQuery = `SELECT id, name FROM users WHERE id = $1`
 
 export const createUserQuery =
   'INSERT INTO users(name, email, password_hash) VALUES($1, $2, $3) RETURNING id'
+
+export const deleteUserQuery = 'DELETE FROM users where users.id = $1'
