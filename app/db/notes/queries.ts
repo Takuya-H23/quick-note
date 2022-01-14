@@ -19,13 +19,13 @@ export const readFoldersQuery = `
 `
 
 export const readNotesUnderFolderQuery = `
-  SELECT n.id, n.title, n.copy FROM notes AS n
+  SELECT n.id, n.title, n.copy, n.is_pinned FROM notes AS n
   WHERE n.user_id = $1 AND n.folder_id = $2
   ORDER BY n.is_pinned DESC, n.updated_at DESC
 `
 
 export const readAllNotesQuery = `
-  SELECT n.id, n.title, n.copy FROM notes AS n
+  SELECT n.id, n.title, n.copy, n.is_pinned FROM notes AS n
   WHERE n.user_id = $1
   ORDER BY n.is_pinned DESC, n.updated_at DESC
 `
