@@ -1,12 +1,18 @@
 import { useState, Fragment } from 'react'
 import { Link, useLoaderData, json } from 'remix'
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import { PencilAltIcon, DotsVerticalIcon } from '@heroicons/react/outline'
+import {
+  PencilAltIcon,
+  DotsVerticalIcon,
+  HeartIcon
+} from '@heroicons/react/outline'
+import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid'
 import { AiOutlineDelete } from 'react-icons/ai'
 
 import { requiredUserId, getSessionFlashMessage } from '~/utils/session.server'
 import { CopyText, SnackBar, BackLink } from '~/components'
 import { getNoteDetail } from '~/db/notes/operations.server'
+
 import type { LoaderFunction } from 'remix'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -37,8 +43,16 @@ export default function NoteDetail() {
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
-  const { id, title, description, copy, message, variant, folder_id } =
-    useLoaderData()
+  const {
+    id,
+    title,
+    description,
+    copy,
+    message,
+    variant,
+    folder_id,
+    is_pinned: isPinned
+  } = useLoaderData()
 
   const folderId = folder_id || 'all'
   return (
@@ -102,8 +116,26 @@ export default function NoteDetail() {
       </Transition>
       <SnackBar message={message} variant={variant} />
       <div className="flex flex-col gap-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center">
           <h2 className="text-xl font-bold lg:text-2xl">{title}</h2>
+          <form
+            method="post"
+            action={`/folders/${folderId}/${id}/pin`}
+            className="ml-auto mr-2"
+          >
+            <input
+              type="hidden"
+              value={isPinned ? 'true' : 'false'}
+              name="isPinned"
+            />
+            <button type="submit">
+              {isPinned ? (
+                <SolidHeartIcon className="w-6 h-6" />
+              ) : (
+                <HeartIcon className="w-6 h-6" />
+              )}
+            </button>
+          </form>
           <Menu as="div" className="relative inline-block text-left">
             <Menu.Button className="flex items-center">
               <DotsVerticalIcon className="w-6 h-6" />

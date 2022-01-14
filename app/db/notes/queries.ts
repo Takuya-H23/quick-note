@@ -40,6 +40,12 @@ export const updateNoteQuery = `
   WHERE notes.user_id = $4 AND notes.id = $5
 `
 
+export const updateIsPinnedQuery = `
+  UPDATE notes
+  SET is_pinned = $1
+  WHERE notes.id = $2
+`
+
 export const readNoteDetailQuery = `
   SELECT * FROM notes 
   WHERE notes.id = $1

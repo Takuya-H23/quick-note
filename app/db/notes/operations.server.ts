@@ -9,6 +9,7 @@ import {
   readNoteDetailQuery,
   readNotesUnderFolderQuery,
   updateFolderQuery,
+  updateIsPinnedQuery,
   updateNoteQuery,
   deleteFolderQuery,
   deleteNoteQuery,
@@ -88,6 +89,17 @@ export const editNote = ({
       userId,
       noteId
     ])
+    .then(x => prop('rowCount', x) === 1)
+
+export const pinOrUnPinNote = ({
+  isPinned,
+  noteId
+}: {
+  isPinned: boolean
+  noteId: string
+}) =>
+  client
+    .query(updateIsPinnedQuery, [isPinned, noteId])
     .then(x => prop('rowCount', x) === 1)
 
 export const deleteFolder = ({
