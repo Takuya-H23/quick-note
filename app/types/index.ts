@@ -14,3 +14,11 @@ export type User = {
   email: string
   password_hash: string
 }
+
+export type Note = {
+  id: string
+  is_pinned: boolean
+  title: string
+  description: string
+  copy: string
+}

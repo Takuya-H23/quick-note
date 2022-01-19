@@ -1,4 +1,4 @@
-import { head, prop } from 'ramda'
+import { head, prop, reduce, compose } from 'ramda'
 
 import { client } from '../client.server'
 import {
@@ -17,7 +17,15 @@ import {
 } from './queries'
 import { extractRows, extractHead, mapExtractRows } from '~/utils/functions'
 
-import type { Fields } from '~/types'
+import type { Fields, Note } from '~/types'
+
+const groupByPin = reduce(
+  (acc: { pinned: Note[]; unpinned: Note[] }, x: Note) =>
+    x.is_pinned
+      ? { ...acc, pinned: [...acc.pinned, x] }
+      : { ...acc, unpinned: [...acc.unpinned, x] },
+  { pinned: [], unpinned: [] }
+)
 
 export const createFolder = ({ name, userId }: Record<string, string>) =>
   client.query(createFolderQuery, [name, userId]).then(extractRows)
@@ -42,7 +50,7 @@ export const getFolders = (userId: string) =>
 export const getAllNotes = (userId: string) =>
   client.query(readAllNotesQuery, [userId]).then(res => ({
     folder: { id: 'all', name: 'All Notes', notes_count: res.rowCount },
-    notes: extractRows(res)
+    notes: compose(groupByPin, extractRows)(res)
   }))
 
 export const getNotesUnderFolder = (folderId: string) =>
@@ -57,7 +65,10 @@ export const getFolderWithNotes = (userId: string, folderId: string) =>
     client.query(readNotesUnderFolderQuery, [userId, folderId])
   ])
     .then(mapExtractRows)
-    .then(([folderRows, notes]) => ({ folder: head(folderRows), notes }))
+    .then(([folderRows, notes]) => ({
+      folder: head(folderRows),
+      notes: groupByPin(notes)
+    }))
 
 export const editFolder = ({
   fields,
