@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { PencilAltIcon, DotsVerticalIcon } from '@heroicons/react/outline'
-
 import { Link, useLoaderData, json } from 'remix'
 import { Dialog, Menu } from '@headlessui/react'
 import { AiOutlineDelete } from 'react-icons/ai'
-import { map } from 'ramda'
+import { map, isEmpty, complement } from 'ramda'
 
 import { requiredUserId, getSessionFlashMessage } from '~/utils/session.server'
 import { getAllNotes, getFolderWithNotes } from '~/db/notes/operations.server'
@@ -51,6 +50,7 @@ export default function NoteFolderDetail() {
   const handleOpen = () => setIsOpen(true)
   const handleClose = () => setIsOpen(false)
   const isAll = folder.id === 'all'
+  console.log(notes)
 
   return (
     <div>
@@ -123,9 +123,22 @@ export default function NoteFolderDetail() {
           </Menu>
         )}
       </div>
-      <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 items-stretch">
-        {noteRenderer(notes)}
-      </ul>
+      <div className="mt-6 flex flex-col gap-y-8">
+        {complement(isEmpty)(notes.pinned) && (
+          <div>
+            <h3 className="text-xl text-medium mb-2">Pinned</h3>
+            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+              {noteRenderer(notes.pinned)}
+            </ul>
+          </div>
+        )}
+        <div>
+          <h3 className="text-xl text-medium mb-2">Notes</h3>
+          <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+            {noteRenderer(notes.unpinned)}
+          </ul>
+        </div>
+      </div>
     </div>
   )
 }
